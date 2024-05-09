@@ -61,7 +61,7 @@ const Dashboard = () => {
               ) : (
                 <div className='flex flex-col justify-center items-center gap-y-2 h-full my-4'>
                   <Ghost className='w-10 h-10'/>
-                  <p className='font-semibold text-lg'>It's a bit lonely around here...</p>
+                  <p className='font-semibold text-lg'>{"It's a bit lonely around here..."}</p>
                   <p className='text-zinc-500 text-sm font-medium'>Upload your first PDF.</p>
                 </div>
               )
