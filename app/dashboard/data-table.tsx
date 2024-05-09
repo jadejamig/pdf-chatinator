@@ -24,6 +24,7 @@ import {
 } from "@/components/ui/table";
 
 import { useState } from "react";
+import UploadButton from "@/components/upload-button";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -67,6 +68,8 @@ export function DataTable<TData, TValue>({
                     }
                     className="max-w-sm"
                 />
+
+                <UploadButton/>
                 
             </div>
             <div className="rounded-md border">

@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 
 import { getUserFiles } from '@/actions/files'
 import NavigationBar from '@/components/navbar'
@@ -10,29 +10,9 @@ import { columns } from './columns';
 import { Ghost, Loader, RefreshCw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-const Dashboard = () => {
+const Dashboard = async () => {
 
-  const [files, setFiles] = useState<File[]>([])
-  const [isPending, startTransition] = useTransition();
-
-  useEffect(() => {
-    refreshData()
-  }, [])
-
-  const refreshData = () => {
-
-    setFiles([]);
-
-    startTransition(async () => {
-      
-      const retrievedfiles = await getUserFiles();
-  
-      if (!retrievedfiles) return;
-
-      setFiles(retrievedfiles);
-      }
-    )
-  }
+  const retrievedfiles = await getUserFiles();
 
   return (
     <main className='flex w-full justify-center h-screen '>
@@ -43,16 +23,12 @@ const Dashboard = () => {
             <div className="w-full h-px bg-zinc-300" />
           
             <div className='flex flex-row gap-x-2 mt-8'>
-              <UploadButton/>
-              <Button className="flex gap-x-2 " onClick={() => refreshData()}>
-                  <RefreshCw className="w-4 h-4"/>
-                  Refresh
-              </Button>
+              {/* <UploadButton/> */}
             </div>
 
-            {(files && files.length !== 0) ? (
-                  <DataTable columns={columns} data={files} />
-              ) : isPending ? (
+            {(retrievedfiles && retrievedfiles.length !== 0) ? (
+                  <DataTable columns={columns} data={retrievedfiles} />
+              ) : false ? (
                 <div className='flex flex-col justify-center items-center h-full gap-y-2 my-4'>
                   <Loader className='animate-spin w-8 h-8'/>
                   <p className='font-semibold text-lg'>Hold on while we fetch your files.</p>

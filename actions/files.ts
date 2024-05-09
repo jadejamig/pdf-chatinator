@@ -20,15 +20,17 @@ export async function deleteFileById(fileId: string) {
         const userFromDatabase = await getUserByKindeId();
 
         if (!userFromDatabase)
-            return { error: "Internal Server Error.", status: 500}
+            return { error: "Unauthorized.", status: 401}
 
-        await prisma.file.delete({
+        const deletedFile = await prisma.file.delete({
             where: { id: fileId, userId: userFromDatabase.id}
         })
-        
-        revalidatePath('/', 'layout')
 
-        console.log("file successfully deleted")
+        if (!deletedFile)
+            return { error: "Internal Server Error.", status: 500}
+        
+        revalidatePath('/dashboard');
+
         return { success: "File deleted successfully.", status: 200}
     } catch {
         return { error: "Internal Server Error.", status: 500}

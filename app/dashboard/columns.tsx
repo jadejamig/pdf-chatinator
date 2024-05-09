@@ -1,21 +1,19 @@
 "use client"
 
-import { File } from ".prisma/client"
+import { File } from ".prisma/client";
+import { deleteFileById } from "@/actions/files";
 import { Button } from "@/components/ui/button";
-import { ColumnDef } from "@tanstack/react-table"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger
+} from "@/components/ui/dropdown-menu";
+import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal, Trash } from "lucide-react";
 import { BiSolidFilePdf } from "react-icons/bi";
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
-  } from "@/components/ui/dropdown-menu"
-import { deleteFileById } from "@/actions/files";
-import { useRouter } from "next/router";
-
+import { useToast } from "@/components/ui/use-toast"
+import Link from "next/link";
 
 
 export const columns: ColumnDef<File>[] = [
@@ -33,12 +31,12 @@ export const columns: ColumnDef<File>[] = [
         )
     },
     cell: ({row}) => (
-        <div className="flex items-center gap-x-2 cursor-pointer">
+        <Link href={`/dashboard/${row.original.id}`} className="flex items-center gap-x-2 cursor-pointer">
             <BiSolidFilePdf className="h-7 w-7 text-blue-500"/>
             <p className="">
-                {row.getValue("name")}
+                {row.original.name}
             </p>
-        </div>
+        </Link>
     )
   },
   {
@@ -49,7 +47,7 @@ export const columns: ColumnDef<File>[] = [
     accessorKey: "updatedAt",
     header: "Last modified",
     cell: ({row}) => {
-        const updatedAt = row.getValue("updatedAt") as Date
+        const updatedAt = row.original.updatedAt as Date
     return (
         <div className="">
             <p className="">
@@ -62,6 +60,7 @@ export const columns: ColumnDef<File>[] = [
     id: "actions",
     cell: ({ row }) => {
       const file = row.original
+      const { toast } = useToast();
 
       return (
         <DropdownMenu>
@@ -77,7 +76,15 @@ export const columns: ColumnDef<File>[] = [
                   variant='destructive' 
                   className="flex gap-x-2 w-full"
                   onClick={async () => {
-                     await deleteFileById(file.id)
+                    
+                    const response = await deleteFileById(file.id);
+                    if (response.success) {
+                      toast({
+                      duration: 2000,
+                      variant: "success",
+                      description: response.success
+                    })
+                    }
                   }}
                 >
                     <Trash className="h-4 w-4"/>
