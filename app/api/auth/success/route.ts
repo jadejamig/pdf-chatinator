@@ -3,9 +3,9 @@ export const dynamic = "force-dynamic";
 import { getKindeUser } from "@/actions/users";
 import prisma from "@/prisma/db";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function GET() {
+export async function GET(req: NextRequest) {
     const user = await getKindeUser();
 
     if (!user || user == null || !user.id)
@@ -26,5 +26,10 @@ export async function GET() {
         });
     }
 
-    return NextResponse.redirect("/dashboard");
+    // Given an incoming request...
+    const dashboardUrl = new URL('/dashboard', req.url)
+    // Add ?from=/incoming-url to the /login URL
+    // dashboardUrl.searchParams.set('from', req.nextUrl.pathname)
+    // And redirect to the new URL
+    return NextResponse.redirect(dashboardUrl);
 }
