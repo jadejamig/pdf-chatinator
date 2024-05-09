@@ -14,6 +14,7 @@ import { ArrowUpDown, MoreHorizontal, Trash } from "lucide-react";
 import { BiSolidFilePdf } from "react-icons/bi";
 import { useToast } from "@/components/ui/use-toast"
 import Link from "next/link";
+import { MouseEventHandler } from "react";
 
 
 export const columns: ColumnDef<File>[] = [
@@ -59,8 +60,22 @@ export const columns: ColumnDef<File>[] = [
   {
     id: "actions",
     cell: ({ row }) => {
-      const file = row.original
-      const { toast } = useToast();
+      const file = row.original;
+
+      // const { toast } = useToast();
+      // const onDeleteFile = async (e: any) => {
+      //     e.stopPropagation();
+          
+      //     const response = await deleteFileById(file.id);
+
+      //     if (response.success) {
+      //       toast({
+      //         duration: 2000,
+      //         variant: "success",
+      //         description: response.success
+      //     })
+      //     }
+      // };
 
       return (
         <DropdownMenu>
@@ -75,17 +90,7 @@ export const columns: ColumnDef<File>[] = [
                 <Button 
                   variant='destructive' 
                   className="flex gap-x-2 w-full"
-                  onClick={async () => {
-                    
-                    const response = await deleteFileById(file.id);
-                    if (response.success) {
-                      toast({
-                      duration: 2000,
-                      variant: "success",
-                      description: response.success
-                    })
-                    }
-                  }}
+                  onClick={ async () => await deleteFileById(file.id)}
                 >
                     <Trash className="h-4 w-4"/>
                     Delete File
