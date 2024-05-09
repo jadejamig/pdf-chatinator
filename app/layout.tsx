@@ -15,7 +15,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="bg-gray-950 bg-[url('/grid.svg')]">
+    <html lang="en" className="">
       <body className={`${inter.className}`}>{children}</body>
     </html>
   );
