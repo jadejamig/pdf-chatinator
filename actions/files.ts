@@ -2,11 +2,11 @@
 
 import prisma from "@/prisma/db";
 import { revalidatePath } from "next/cache";
-import { getUserByKindeId } from "./users";
+import { getDbUserByKindeId } from "./users";
 
 export async function getUserFiles() {
     
-    const userFromDatabase = await getUserByKindeId();
+    const userFromDatabase = await getDbUserByKindeId();
 
     if (!userFromDatabase) return null;
 
@@ -17,7 +17,7 @@ export async function getUserFiles() {
 
 export async function deleteFileById(fileId: string) {
     try {
-        const userFromDatabase = await getUserByKindeId();
+        const userFromDatabase = await getDbUserByKindeId();
 
         if (!userFromDatabase)
             return { error: "Unauthorized.", status: 401}
