@@ -1,11 +1,10 @@
 "use client";
 
-import { UploadIcon } from "lucide-react"
-import { Button } from "./ui/button"
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { UploadIcon } from "lucide-react";
 import { useState } from "react";
-import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { DialogHeader } from "./ui/dialog";
-import Dropzone from "react-dropzone"
+import { Button } from "@/components/ui/button";
+import { DialogHeader } from "@/components/ui/dialog";
 import UploadDropZone from "./upload-dropzone";
 
 const UploadButton = () => {
@@ -30,7 +29,7 @@ const UploadButton = () => {
             <DialogContent className="rounded-lg">
                 <DialogHeader>
                 </DialogHeader>
-                <UploadDropZone />
+                <UploadDropZone setIsOpen={setIsOpen} />
             </DialogContent>
         </Dialog>
     )

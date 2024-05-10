@@ -4,21 +4,21 @@ import prisma from "@/prisma/db";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { use } from "react";
 
-export async function getDbUserByKindeId() {
-    const { isAuthenticated, getUser } = getKindeServerSession()
+// export async function getDbUserByKindeId() {
+//     const { isAuthenticated, getUser } = getKindeServerSession()
 
-    if (!isAuthenticated) return null;
+//     if (!isAuthenticated) return null;
 
-    const kindeUser = await getUser();
+//     const kindeUser = await getUser();
 
-    if (!kindeUser) return null;
+//     if (!kindeUser) return null;
 
-    const user = prisma.user.findUnique({
-        where: { kindeId: kindeUser.id}
-    });
+//     const user = prisma.user.findUnique({
+//         where: { kindeId: kindeUser.id}
+//     });
 
-    return user;
-}
+//     return user;
+// }
 
 export async function getKindeUser() {
     const { getUser } = getKindeServerSession();

@@ -62,20 +62,19 @@ export const columns: ColumnDef<File>[] = [
     cell: ({ row }) => {
       const file = row.original;
 
-      // const { toast } = useToast();
-      // const onDeleteFile = async (e: any) => {
-      //     e.stopPropagation();
+      const { toast } = useToast();
+      const onDeleteFile = async () => {
           
-      //     const response = await deleteFileById(file.id);
+          const response = await deleteFileById(file.id);
 
-      //     if (response.success) {
-      //       toast({
-      //         duration: 2000,
-      //         variant: "success",
-      //         description: response.success
-      //     })
-      //     }
-      // };
+          if (response.success) {
+            toast({
+              duration: 2000,
+              variant: "success",
+              description: response.success
+            })
+          }
+      };
 
       return (
         <DropdownMenu>
@@ -90,7 +89,7 @@ export const columns: ColumnDef<File>[] = [
                 <Button 
                   variant='destructive' 
                   className="flex gap-x-2 w-full"
-                  onClick={ async () => await deleteFileById(file.id)}
+                  onClick={ async () => await onDeleteFile()} //await deleteFileById(file.id)
                 >
                     <Trash className="h-4 w-4"/>
                     Delete File

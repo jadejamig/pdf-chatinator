@@ -23,8 +23,10 @@ const Dashboard = async () => {
             <div className='flex flex-row gap-x-2 mt-8'>
               {/* <UploadButton/> */}
             </div>
-
-            {(retrievedfiles && retrievedfiles.length !== 0) ? (
+            
+            <DataTable columns={columns} data={retrievedfiles ?? []} />
+            
+            {/* {(retrievedfiles && retrievedfiles.length !== 0) ? (
                   <DataTable columns={columns} data={retrievedfiles} />
               ) : false ? (
                 <div className='flex flex-col justify-center items-center h-full gap-y-2 my-4'>
@@ -39,7 +41,7 @@ const Dashboard = async () => {
                   <p className='text-zinc-500 text-sm font-medium'>Upload your first PDF.</p>
                 </div>
               )
-            }
+            } */}
     
         </div>
     </main>

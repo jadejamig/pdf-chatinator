@@ -2,28 +2,29 @@
 
 import prisma from "@/prisma/db";
 import { revalidatePath } from "next/cache";
-import { getDbUserByKindeId } from "./users";
+import { getKindeUser } from "./users";
+// import { getDbUserByKindeId } from "./users";
 
 export async function getUserFiles() {
     
-    const userFromDatabase = await getDbUserByKindeId();
+    const user = await getKindeUser();
 
-    if (!userFromDatabase) return null;
+    if (!user) return null;
 
     return await prisma.file.findMany({
-        where: { userId: userFromDatabase.id }
+        where: { userId: user.id }
     })
 }
 
 export async function deleteFileById(fileId: string) {
     try {
-        const userFromDatabase = await getDbUserByKindeId();
+        const user = await getKindeUser();
 
-        if (!userFromDatabase)
+        if (!user)
             return { error: "Unauthorized.", status: 401}
 
         const deletedFile = await prisma.file.delete({
-            where: { id: fileId, userId: userFromDatabase.id}
+            where: { id: fileId, userId: user.id}
         })
 
         if (!deletedFile)
@@ -38,9 +39,9 @@ export async function deleteFileById(fileId: string) {
 }
 
 export async function getFileFromDb(id: string ) {
-    const userFromDatabase = await getDbUserByKindeId();
+    const user = await getKindeUser();
 
-    if (!userFromDatabase) return null;
+    if (!user) return null;
 
     return await prisma.file.findUnique({
         where: { id: id }

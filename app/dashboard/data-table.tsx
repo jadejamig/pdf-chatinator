@@ -25,6 +25,7 @@ import {
 
 import { useState } from "react";
 import UploadButton from "@/components/upload-button";
+import { Ghost } from "lucide-react";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -103,7 +104,11 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
                     ) : (
                         <TableRow>
                         <TableCell colSpan={columns.length} className="h-24 text-center">
-                            No results.
+                        <div className='flex flex-col justify-center items-center gap-y-2 h-full my-4'>
+                            <Ghost className='w-6 h-6 text-zinc-700'/>
+                            <p className='text-zinc-600 font-medium text-sm'>{"It's a bit lonely around here..."}</p>
+                            <p className='text-zinc-500 text-xs font-normal'>{"Upload your first PDF :)"}</p>
+                        </div>
                         </TableCell>
                         </TableRow>
                     )}
