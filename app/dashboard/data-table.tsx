@@ -31,15 +31,10 @@ interface DataTableProps<TData, TValue> {
   data: TData[]
 }
 
-export function DataTable<TData, TValue>({
-  columns,
-  data,
-}: DataTableProps<TData, TValue>) {
+export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData, TValue>) {
 
     const [sorting, setSorting] = useState<SortingState>([]);
-    const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>(
-        []
-    );
+    const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
     const table = useReactTable({
         data,
@@ -58,7 +53,7 @@ export function DataTable<TData, TValue>({
 
     return (
         <div>
-            <div className="flex justify-between items-center py-4">
+            <div className="flex justify-between items-center py-4 gap-x-2">
                 
                 <Input
                     placeholder="Filter name..."

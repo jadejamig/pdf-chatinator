@@ -5,6 +5,8 @@ import { Button } from "./ui/button"
 import { useState } from "react";
 import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { DialogHeader } from "./ui/dialog";
+import Dropzone from "react-dropzone"
+import UploadDropZone from "./upload-dropzone";
 
 const UploadButton = () => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -25,13 +27,10 @@ const UploadButton = () => {
                     new file
                 </Button>
             </DialogTrigger>
-            <DialogContent>
+            <DialogContent className="rounded-lg">
                 <DialogHeader>
-                    <DialogTitle>Edit profile</DialogTitle>
-                    <DialogDescription>
-                        {"Make changes to your profile here. Click save when you're done."}
-                    </DialogDescription>
                 </DialogHeader>
+                <UploadDropZone />
             </DialogContent>
         </Dialog>
     )

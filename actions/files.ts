@@ -35,7 +35,14 @@ export async function deleteFileById(fileId: string) {
     } catch {
         return { error: "Internal Server Error.", status: 500}
     }
-    
+}
 
-    
+export async function getFileFromDb(id: string ) {
+    const userFromDatabase = await getDbUserByKindeId();
+
+    if (!userFromDatabase) return null;
+
+    return await prisma.file.findUnique({
+        where: { id: id }
+    })
 }

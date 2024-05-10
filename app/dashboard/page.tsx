@@ -1,21 +1,19 @@
 // "use client";
 
-import { getUserFiles } from '@/actions/files'
-import NavigationBar from '@/components/navbar'
-import UploadButton from '@/components/upload-button'
-import { File } from '@prisma/client';
-import { useTransition, useState, useEffect } from 'react';
-import { DataTable } from './data-table';
+import { getUserFiles } from '@/actions/files';
+import NavigationBar from '@/components/navbar';
+import { Ghost, Loader } from 'lucide-react';
 import { columns } from './columns';
-import { Ghost, Loader, RefreshCw } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { DataTable } from './data-table';
+import { cn } from '@/lib/utils';
 
 const Dashboard = async () => {
-
+  
   const retrievedfiles = await getUserFiles();
 
   return (
-    <main className='flex w-full justify-center h-screen '>
+    <main className={cn("flex w-full justify-center", !retrievedfiles?.length ? "h-screen" : "")}>
+        
         <div className='flex flex-col max-w-5xl w-full px-4'>
 
             <NavigationBar/>
