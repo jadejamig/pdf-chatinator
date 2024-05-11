@@ -34,7 +34,6 @@ const PdfRenderPage = ({ pdfUrl }: PdfRenderPageProps) => {
   return (
     <div>
       <Document file={pdfUrl} onLoadSuccess={onDocumentLoadSuccess} loading={PdfLoading}>
-        <Outline  />
         <Page pageNumber={pageNumber} height={600} />
       </Document>
       <div className='flex gap-x-2 justify-center items-center'>
