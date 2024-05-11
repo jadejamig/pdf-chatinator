@@ -34,11 +34,11 @@ const UploadDropZone = ({ setIsOpen }: DropzoneProps) => {
                     description: `Successfully uploaded pdf ${res.name} 🎉`
                 })
             },
-            onUploadError: () => {
+            onUploadError: (e) => {
                 toast({
                     duration: 2000,
                     variant: "destructive",
-                    description: "Something went wrong! Couldn't upload your file."
+                    description: e.message //"Something went wrong! Couldn't upload your file."
                 })
             }
         },
