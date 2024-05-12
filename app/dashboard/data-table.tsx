@@ -37,7 +37,6 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
 
     const [sorting, setSorting] = useState<SortingState>([]);
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-    const { height, ref } = useResizeDetector()
 
     const table = useReactTable({
         data,
@@ -55,7 +54,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
     })
 
     return (
-        <div ref={ref} className="flex flex-1 flex-col gap-y-2 mb-4">
+        <div className="flex flex-1 flex-col gap-y-2 mb-4">
             <div className="flex justify-between items-center gap-x-2">
                 
                 <Input
@@ -71,7 +70,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
                 
             </div>
             <div className="rounded-md border w-full">
-                <div className="overflow-scroll h-[calc(100vh-15rem)] max-h-calc(100vh-15rem)]">
+                <div className="overflow-scroll h-[calc(100dvh-15rem)] max-h-calc(100dvh-15rem)]">
                 <Table>
                     <TableHeader>
                     {table.getHeaderGroups().map((headerGroup) => (
