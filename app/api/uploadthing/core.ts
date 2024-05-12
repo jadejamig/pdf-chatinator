@@ -28,7 +28,7 @@ export const ourFileRouter = {
       await prisma.file.create({
         data: {
             name: file.name,
-            uploadStatus: "PROCESSING",
+            uploadStatus: "SUCCESS",
             url: file.url,
             key: file.key,
             userId: metadata.userId

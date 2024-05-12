@@ -70,14 +70,7 @@ const UploadDropZone = ({ setIsOpen }: DropzoneProps) => {
                 setIsUploading(true);
                 const progressInterval = startSimulatedProgress();
                 
-                // console.log("made it here 1")
-                // console.log(droppedFile)
-                // await new Promise((resolve) => setTimeout(resolve, 2000))
-
                 const res = await startUpload(droppedFile);
-
-                // console.log(res)
-                // console.log("made it here 2")
 
                 if (!res) {
                     clearInterval(progressInterval);
@@ -86,11 +79,6 @@ const UploadDropZone = ({ setIsOpen }: DropzoneProps) => {
                     setIsError(true);
                     return
                 }
-                // console.log("made it here 3")
-
-                // const [fileResponse] = res;
-
-                // const key = fileResponse.key;
 
                 clearInterval(progressInterval);
                 setUploadProgress(100);

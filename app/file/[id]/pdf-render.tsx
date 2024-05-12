@@ -44,16 +44,16 @@ const PdfRenderPage = ({ pdfUrl }: PdfRenderPageProps) => {
 
   return (
     
-    <div ref={ref} className='flex lg:flex-1/2 justify-center items-center w-full text-center border rounded-md py-4'>
-        <ScrollArea className='h-[calc(100vh-7rem)] max-h-calc(100vh-7rem)]'>
+    <div ref={ref} className='flex lg:flex-1/2 justify-center items-center w-full border rounded-md shadow-md'>
+        <div className='overflow-scroll overflow-x-hidden h-[calc(100vh-5rem)] max-h-calc(100vh-7rem)] '>
           <Document file={pdfUrl} onLoadSuccess={onDocumentLoadSuccess} loading={PdfLoading}>
             { Array.from(Array(numPages).keys()).map((n) => (
               <Page key={n} loading={PageLoading} pageNumber={n+1} width={width ? width * 0.95 : 100} />
               ))
             }
           </Document>
-          <ScrollBar orientation='vertical'/>
-        </ScrollArea>
+          {/* <ScrollBar orientation='vertical'/> */}
+        </div>
     </div>
   )
 }

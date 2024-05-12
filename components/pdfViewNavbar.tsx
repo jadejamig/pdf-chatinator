@@ -18,7 +18,7 @@ const PdfViewNavBar = ({ file }: PdfViewNavBarProps) => {
   const router = useRouter();
   return (
     <div className='flex flex-col justify-center items-center w-full'>
-    <div className='flex justify-between items-center w-full gap-x-6'>
+    <div className='flex justify-between items-center w-full gap-x-8'>
       <Button variant='ghost' className='p-0'>
         <Link href="/dashboard" className='flex gap-x-2 items-center'>
           <ChevronLeft className='h-4 w-4'/>
@@ -26,7 +26,7 @@ const PdfViewNavBar = ({ file }: PdfViewNavBarProps) => {
         </Link>
       </Button>
 
-      <p className='truncate text-sm font-semibold'>{file.name}</p>
+      <p className='truncate text-sm font-semibold max-w-xl'>{file.name}</p>
 
       <DropdownMenu>
           <DropdownMenuTrigger asChild>
