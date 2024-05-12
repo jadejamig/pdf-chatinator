@@ -3,7 +3,7 @@ import { AIBubble, UserBubble } from './chat-bubble'
 
 const Messages = () => {
   return (
-    <div className='grid w-full gap-4 overflow-scroll rounded-md'>
+    <div className='grid w-full gap-4 overflow-scroll rounded-md shadow px-4'>
       {dummyMessage.map((message) => {
         return message.author === "user" ? <UserBubble key={message.content} message={message.content}  /> : <AIBubble key={message.content}  message={message.content} />
       })}
