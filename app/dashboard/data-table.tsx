@@ -26,6 +26,7 @@ import {
 import { useState } from "react";
 import UploadButton from "@/components/upload-button";
 import { Ghost } from "lucide-react";
+import { useResizeDetector } from "react-resize-detector";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -36,6 +37,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
 
     const [sorting, setSorting] = useState<SortingState>([]);
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+    const { height, ref } = useResizeDetector()
 
     const table = useReactTable({
         data,
@@ -53,8 +55,8 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
     })
 
     return (
-        <div>
-            <div className="flex justify-between items-center py-4 gap-x-2">
+        <div ref={ref} className="flex flex-1 flex-col gap-y-2 mb-4">
+            <div className="flex justify-between items-center gap-x-2">
                 
                 <Input
                     placeholder="Filter name..."
@@ -68,9 +70,9 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
                 <UploadButton/>
                 
             </div>
-            <div className="rounded-md border">
+            <div className="rounded-md border w-full">
+                <div className="overflow-scroll h-[calc(100vh-15rem)] max-h-calc(100vh-15rem)]">
                 <Table>
-
                     <TableHeader>
                     {table.getHeaderGroups().map((headerGroup) => (
                         <TableRow key={headerGroup.id}>
@@ -89,8 +91,9 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
                         </TableRow>
                     ))}
                     </TableHeader>
-
+                    
                     <TableBody>
+                    
                     {table.getRowModel().rows?.length ? (
                         table.getRowModel().rows.map((row) => (
                         <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
@@ -112,9 +115,12 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
                         </TableCell>
                         </TableRow>
                     )}
+                    
                     </TableBody>
                     
+                    
                 </Table>
+                </div>
             </div>
             <div className="flex items-center justify-end space-x-2 py-4">
                 <Button

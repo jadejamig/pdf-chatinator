@@ -6,7 +6,7 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="flex justify-center items-center h-screen w-screen bg-gray-950 bg-[url('/grid.svg')]">
+    <div className="flex justify-center items-center h-screen max-h-screen w-screen bg-gray-950 bg-[url('/grid.svg')]">
       <div className="flex flex-col gap-y-2">
         <Card className="w-[350px] border border-zinc-900 bg-zinc-300">
           <CardHeader>
