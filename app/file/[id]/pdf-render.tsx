@@ -44,7 +44,7 @@ const PdfRenderPage = ({ pdfUrl }: PdfRenderPageProps) => {
 
   return (
     
-    <div ref={ref} className='flex lg:flex-1/2 justify-center items-center w-full border rounded-md shadow-md'>
+    <div ref={ref} className='hidden md:flex md:flex-1/2 justify-center items-center w-full border rounded-md shadow-md'>
         <div className='overflow-scroll overflow-x-hidden h-[calc(100vh-5rem)] max-h-calc(100vh-7rem)] '>
           <Document file={pdfUrl} onLoadSuccess={onDocumentLoadSuccess} loading={PdfLoading}>
             { Array.from(Array(numPages).keys()).map((n) => (

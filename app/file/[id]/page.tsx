@@ -24,7 +24,7 @@ const PdfChatPage = async ({ params }: PdfChatPageProps) => {
 
                 <PdfViewNavBar file={file}/>
                 
-                <div className='flex flex-col lg:flex-row w-full gap-4 my-4'>
+                <div className='flex flex-col md:flex-row w-full gap-4 my-4'>
                     <PdfRenderPage pdfUrl={file.url} />
                     <ChatWrapper />
                 </div>
