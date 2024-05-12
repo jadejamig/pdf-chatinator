@@ -27,7 +27,7 @@ const PdfRenderPage = ({ pdfUrl }: PdfRenderPageProps) => {
 
   const PdfLoading = () => {
     return (
-      <div className='flex flex-col gap-y-2 justify-center items-center h-[calc(100vh-7rem)] max-h-calc(100vh-7rem)] w-full'>
+      <div className='flex flex-col gap-y-2 justify-center items-center h-[calc(100dvh-7rem)] max-h-calc(100dvh-7rem)] w-full'>
           <LoaderCircle className='w-5 h-5 animate-spin font-light'/>
           <p>{"Please wait while I fetch your file ✌🏻"}</p>
       </div>
@@ -36,7 +36,7 @@ const PdfRenderPage = ({ pdfUrl }: PdfRenderPageProps) => {
 
   const PageLoading = () => {
     return (
-      <div className='flex flex-col gap-y-2 justify-center items-center h-[calc(100vh-7rem)] max-h-calc(100vh-7rem)] w-full'>
+      <div className='flex flex-col gap-y-2 justify-center items-center h-[calc(100dvh-7rem)] max-h-calc(100dvh-7rem)] w-full'>
           <FileText className='w-10 h-10 animate-spin font-light text-zinc-400'/>
       </div>
     )
@@ -45,7 +45,7 @@ const PdfRenderPage = ({ pdfUrl }: PdfRenderPageProps) => {
   return (
     
     <div ref={ref} className='hidden md:flex md:flex-1/2 justify-center items-center w-full border rounded-md shadow-md'>
-        <div className='overflow-scroll overflow-x-hidden h-[calc(100vh-5rem)] max-h-calc(100vh-7rem)] '>
+        <div className='overflow-scroll overflow-x-hidden h-[calc(100dvh-5rem)] max-h-calc(100dvh-7rem)] '>
           <Document file={pdfUrl} onLoadSuccess={onDocumentLoadSuccess} loading={PdfLoading}>
             { Array.from(Array(numPages).keys()).map((n) => (
               <Page key={n} loading={PageLoading} pageNumber={n+1} width={width ? width * 0.95 : 100} />
