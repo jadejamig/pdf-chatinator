@@ -11,7 +11,7 @@ const Dashboard = async () => {
 
   return (
     <main className={"flex flex-1 w-full justify-center items-center"}>
-        <div className='flex flex-col max-w-6xl w-full h-screen max-h-screen gap-y-6 px-4'>
+        <div className='flex flex-col max-w-6xl w-full h-dvh max-h-dvh gap-y-6 px-4'>
 
             <NavigationBar/>
             
