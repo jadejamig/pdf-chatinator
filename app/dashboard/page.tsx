@@ -10,8 +10,8 @@ const Dashboard = async () => {
   const retrievedfiles = await getUserFiles();
 
   return (
-    <main className={"flex flex-1 w-full justify-center h-dvh max-h-dvh items-center"}>
-        <div className='flex flex-col max-w-6xl w-full h-dvh max-h-dvh gap-y-6 px-4'>
+    <main className="flex flex-1 w-full justify-center items-center">
+        <div className='flex flex-col max-w-6xl w-full gap-y-6 px-4' style={{ height: "100vh", maxHeight: "-webkit-fill-available;"}}>
 
             <NavigationBar/>
             
