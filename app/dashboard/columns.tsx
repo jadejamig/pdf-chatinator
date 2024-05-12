@@ -16,10 +16,12 @@ import { useToast } from "@/components/ui/use-toast"
 import Link from "next/link";
 import { MouseEventHandler } from "react";
 import { UTApi } from 'uploadthing/server';
+import { useRouter } from "next/navigation";
 
 const CellAction = ({ row }: CellContext<File, unknown>) => {
   const file = row.original;
   const { toast } = useToast();
+  const router = useRouter();
 
   return (
     <DropdownMenu>
@@ -33,12 +35,24 @@ const CellAction = ({ row }: CellContext<File, unknown>) => {
         <DropdownMenuItem 
           className='text-red-600 focus:text-red-700 bg-red-100/50'
           onClick={ async () => {
-            await deleteFileById(file.key)
-            toast({
-              duration: 4000,
-              variant: "success",
-              description: `🗑 Deleted successfully!`
-            })
+            const { success } = await deleteFileById(file.key)
+                  
+                  if (!success) {
+                    toast({
+                      duration: 4000,
+                      variant: "default",
+                      description: `💥 Something went wrong, couldn't delete the file!`
+                    })
+                    return
+                  }
+
+                  toast({
+                    duration: 4000,
+                    variant: "success",
+                    description: `🗑 Deleted successfully!`
+                  })
+
+                  router.refresh();
           }}
         >
             <Trash className="mr-2 h-4 w-4" />

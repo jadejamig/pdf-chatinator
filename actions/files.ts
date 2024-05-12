@@ -44,7 +44,7 @@ export async function deleteFileById(key: string) {
         if (!success)
             return { error: "Internal Server Error.", status: 500}
 
-        revalidatePath('/dashboard');
+        // revalidatePath('/dashboard');
 
         return { success: "File deleted successfully.", status: 200}
     } catch {
