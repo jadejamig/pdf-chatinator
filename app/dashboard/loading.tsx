@@ -6,7 +6,7 @@ const DashboardLoader = () => {
   return (
     <main className={"flex w-full justify-center"}>
         
-      <div className='flex flex-col max-w-5xl w-full px-4'>
+      <div className='flex flex-col max-w-6xl w-full px-4'>
 
           <NavigationBar/>
           
@@ -14,7 +14,7 @@ const DashboardLoader = () => {
 
           <div className='flex flex-col gap-y-2 my-4'>
             <div className='flex w-full justify-between mt-8'>
-              <Skeleton height={30} width={300} />
+              <Skeleton height={30} width={150} />
               <Skeleton height={30} width={100} />
             </div>
 

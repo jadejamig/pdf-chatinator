@@ -32,7 +32,7 @@ export const columns: ColumnDef<File>[] = [
         )
     },
     cell: ({row}) => (
-        <Link href={`/file/${row.original.id}`} className="flex items-center gap-x-2 cursor-pointer ">
+        <Link href={`/file/${row.original.id}`} className="flex items-center justify-start gap-x-2 cursor-pointer">
             <BiSolidFilePdf className="h-7 w-7 text-blue-500"/>
             <p className="max-w-xs truncate">
                 {row.original.name}

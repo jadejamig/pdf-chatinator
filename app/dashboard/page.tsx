@@ -14,7 +14,7 @@ const Dashboard = async () => {
   return (
     <main className={cn("flex w-full justify-center", !retrievedfiles?.length ? "h-screen" : "")}>
         
-        <div className='flex flex-col max-w-5xl w-full px-4'>
+        <div className='flex flex-col max-w-6xl w-full px-4'>
 
             <NavigationBar/>
             
