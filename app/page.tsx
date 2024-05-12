@@ -16,16 +16,14 @@ export default function Home() {
             <CardDescription className="text-zinc-700 font-medium">Talk to your PDF files using AI technology.</CardDescription>
           </CardHeader>
           <CardContent className="flex flex-col gap-y-4">
-            
-            
-              <Button className="w-full" asChild>
-                <Link href="/dashboard">
+              <Link href="/dashboard">
+                <Button className="flex w-full">
+                
                   Get Started
                   <MoveRight className="pl-2"/>
-                </Link>
-              </Button>
-           
-
+                </Button>
+              </Link>
+              
             <div className="flex flex-row justify-center items-center gap-x-2">
               <div className="w-full h-px bg-zinc-400" /> 
                 <p className="text-xs text-nowrap">by Jade Jamig</p>
