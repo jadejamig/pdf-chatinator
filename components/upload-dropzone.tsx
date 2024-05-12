@@ -100,17 +100,18 @@ const UploadDropZone = ({ setIsOpen }: DropzoneProps) => {
                 console.log("Here in on error!")
             }}
         >
-            {({getRootProps, acceptedFiles, open}) => (
+            {({getInputProps, getRootProps, acceptedFiles, open}) => (
                 <div {...getRootProps()} className='border h-64 border-dashed border-gray-300 rounded-lg cursor-pointer bg-zinc-50'
                     onClick={open}
                 >
                     <div className='flex flex-col gap-y-2 justify-center items-center h-full w-full'>
+                        <input {...getInputProps()} />
                         <Plus className='text-zinc-500'/>
                         <p className='text-sm text-zinc-500'>
                             <span className='font-semibold'>{"Click to upload "}</span>
                             or drag and drop.
                         </p>
-                        <p className='text-xs text-zinc-500'>{"PDF (up to 4MB)"}</p>
+                        <p className='text-xs text-zinc-500'>{"One PDF at a time (up to 4MB)"}</p>
 
                         {(acceptedFiles && acceptedFiles[0] && !isError) && (
                             <div className='flex justify-center items-center gap-x-2 text-zinc-500
