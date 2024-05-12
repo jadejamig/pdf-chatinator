@@ -63,6 +63,7 @@ const UploadDropZone = ({ setIsOpen }: DropzoneProps) => {
 
     return (
         <Dropzone
+            noClick={true}
             multiple={false}  
             onDrop={ async (droppedFile) => { 
                 setIsError(false);
@@ -99,8 +100,10 @@ const UploadDropZone = ({ setIsOpen }: DropzoneProps) => {
                 console.log("Here in on error!")
             }}
         >
-            {({getInputProps, getRootProps, acceptedFiles}) => (
-                <div {...getRootProps()} className='border h-64 border-dashed border-gray-300 rounded-lg cursor-pointer bg-zinc-50'>
+            {({getRootProps, acceptedFiles, open}) => (
+                <div {...getRootProps()} className='border h-64 border-dashed border-gray-300 rounded-lg cursor-pointer bg-zinc-50'
+                    onClick={open}
+                >
                     <div className='flex flex-col gap-y-2 justify-center items-center h-full w-full'>
                         <Plus className='text-zinc-500'/>
                         <p className='text-sm text-zinc-500'>
@@ -121,13 +124,13 @@ const UploadDropZone = ({ setIsOpen }: DropzoneProps) => {
                         )}
 
                         { isUploading && (
-                                <div className='w-full mt-4 max-w-xs mx-auto'>
-                                    <Progress value={uploadProgress} className='h-1 w-full bg-zinc-200' />
-                                </div>
-                            )}
-                        </div>
-                        
+                            <div className='w-full mt-4 max-w-xs mx-auto'>
+                                <Progress value={uploadProgress} className='h-1 w-full bg-zinc-200' />
+                            </div>
+                        )}
                     </div>
+                        
+                </div>
             )}
         </Dropzone>
     )
