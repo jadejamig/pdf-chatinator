@@ -31,7 +31,7 @@ const UploadDropZone = ({ setIsOpen }: DropzoneProps) => {
                 toast({
                     duration: 4000,
                     variant: "success",
-                    description: `Successfully uploaded pdf ${res.name} 🎉`
+                    description: `🎉 Successfully uploaded pdf ${res.name}`
                 })
             },
             onUploadError: (e) => {

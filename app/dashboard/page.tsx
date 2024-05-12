@@ -1,5 +1,3 @@
-// "use client";
-
 import { getUserFiles } from '@/actions/files';
 import NavigationBar from '@/components/navbar';
 import { Ghost, Loader } from 'lucide-react';
@@ -26,23 +24,6 @@ const Dashboard = async () => {
             
             <DataTable columns={columns} data={retrievedfiles ?? []} />
             
-            {/* {(retrievedfiles && retrievedfiles.length !== 0) ? (
-                  <DataTable columns={columns} data={retrievedfiles} />
-              ) : false ? (
-                <div className='flex flex-col justify-center items-center h-full gap-y-2 my-4'>
-                  <Loader className='animate-spin w-8 h-8'/>
-                  <p className='font-semibold text-lg'>Hold on while we fetch your files.</p>
-                  <p className='text-zinc-500 text-sm font-medium'>Go touch some grass first.</p>
-                </div>
-              ) : (
-                <div className='flex flex-col justify-center items-center gap-y-2 h-full my-4'>
-                  <Ghost className='w-10 h-10'/>
-                  <p className='font-semibold text-lg'>{"It's a bit lonely around here..."}</p>
-                  <p className='text-zinc-500 text-sm font-medium'>Upload your first PDF.</p>
-                </div>
-              )
-            } */}
-    
         </div>
     </main>
   )

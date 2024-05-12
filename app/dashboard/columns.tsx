@@ -9,7 +9,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
-import { ColumnDef } from "@tanstack/react-table";
+import { CellContext, ColumnDef, Row } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal, Trash } from "lucide-react";
 import { BiSolidFilePdf } from "react-icons/bi";
 import { useToast } from "@/components/ui/use-toast"
@@ -17,6 +17,37 @@ import Link from "next/link";
 import { MouseEventHandler } from "react";
 import { UTApi } from 'uploadthing/server';
 
+const CellAction = ({ row }: CellContext<File, unknown>) => {
+  const file = row.original;
+  const { toast } = useToast();
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="ghost" className="h-8 w-8 p-0">
+          <span className="sr-only">Open menu</span>
+          <MoreHorizontal className="h-4 w-4" />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        <DropdownMenuItem 
+          className='text-red-600 focus:text-red-700 bg-red-100/50'
+          onClick={ async () => {
+            await deleteFileById(file.key)
+            toast({
+              duration: 4000,
+              variant: "success",
+              description: `🗑 Deleted successfully!`
+            })
+          }}
+        >
+            <Trash className="mr-2 h-4 w-4" />
+            <span>Delete file</span>
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  )
+}
 export const columns: ColumnDef<File>[] = [
   {
     accessorKey: "name",
@@ -59,31 +90,6 @@ export const columns: ColumnDef<File>[] = [
   },
   {
     id: "actions",
-    cell: ({ row }) => {
-      const file = row.original;
-
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuItem>
-                <Button 
-                  variant='destructive' 
-                  className="flex gap-x-2 w-full"
-                  onClick={ async () => await deleteFileById(file.key)} //await deleteFileById(file.id)
-                >
-                    <Trash className="h-4 w-4"/>
-                    Delete File
-                </Button>
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      )
-    },
+    cell: CellAction,
   }
 ]

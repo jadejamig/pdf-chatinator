@@ -5,19 +5,24 @@ import { File } from '@prisma/client';
 import { ChevronLeft, MoreHorizontal, RotateCcw, Trash } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from './ui/button';
+import { useToast } from './ui/use-toast';
+import { deleteFileById } from '@/actions/files';
+import { useRouter } from 'next/navigation';
 
 interface PdfViewNavBarProps {
   file: File
 }
 
 const PdfViewNavBar = ({ file }: PdfViewNavBarProps) => {
+  const { toast } = useToast();
+  const router = useRouter();
   return (
     <div className='flex flex-col justify-center items-center w-full'>
     <div className='flex justify-between items-center w-full gap-x-6'>
       <Button variant='ghost' className='p-0'>
         <Link href="/dashboard" className='flex gap-x-2 items-center'>
           <ChevronLeft className='h-4 w-4'/>
-          PDF List
+          Dashboard
         </Link>
       </Button>
 
@@ -36,7 +41,29 @@ const PdfViewNavBar = ({ file }: PdfViewNavBarProps) => {
                 <RotateCcw className="mr-2 h-4 w-4" />
                 <span>Reset chat</span>
               </DropdownMenuItem>
-              <DropdownMenuItem className='text-red-600 focus:text-red-700'>
+              <DropdownMenuItem 
+                className='text-red-600 focus:text-red-700'
+                onClick={ async () => {
+                  const { success } = await deleteFileById(file.key)
+                  
+                  if (!success) {
+                    toast({
+                      duration: 4000,
+                      variant: "default",
+                      description: `💥 Something went wrong, couldn't delete the file!`
+                    })
+                    return
+                  }
+
+                  toast({
+                    duration: 4000,
+                    variant: "success",
+                    description: `🗑 Deleted successfully!`
+                  })
+                  router.push('/dashboard')
+
+                }}
+              >
                 <Trash className="mr-2 h-4 w-4" />
                 <span>Delete file</span>
               </DropdownMenuItem>
