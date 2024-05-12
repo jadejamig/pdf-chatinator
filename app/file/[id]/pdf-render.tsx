@@ -37,10 +37,10 @@ const PdfRenderPage = ({ pdfUrl }: PdfRenderPageProps) => {
   return (
     
     <div ref={ref} className='flex lg:flex-1/2 justify-center items-center w-full text-center border rounded-md py-4'>
-        <ScrollArea className='h-[calc(100vh-8.5rem)] max-h-calc(100vh-8.5rem)]'>
+        <ScrollArea className='h-[calc(100vh-7rem)] max-h-calc(100vh-7rem)]'>
           <Document file={pdfUrl} onLoadSuccess={onDocumentLoadSuccess} loading={PdfLoading}>
             { Array.from(Array(numPages).keys()).map((n) => (
-              <Page pageNumber={n+1} width={width ? width * 0.8 : 100} />
+              <Page key={n} pageNumber={n+1} width={width ? width * 0.8 : 100} />
               ))
             }
           </Document>

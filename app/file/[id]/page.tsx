@@ -23,7 +23,7 @@ const PdfChatPage = async ({ params }: PdfChatPageProps) => {
 
                 <PdfViewNavBar file={file}/>
                 
-                <div className='flex flex-col lg:flex-row w-full gap-2 my-8 py-2'>
+                <div className='flex flex-col lg:flex-row w-full gap-2 my-2 py-2'>
                     <PdfRenderPage pdfUrl={file.url} />
                     <div className='flex lg:flex-1/2 justify-center items-center h-full w-full bg-red-50'>
                         <Ghost className='w-10 h-10'/>
