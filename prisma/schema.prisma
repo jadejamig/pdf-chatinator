@@ -15,11 +15,12 @@ datasource db {
 }
 
 model User {
-  id        String @id @unique
-  email     String @unique
+  id        String    @id @unique
+  email     String    @unique
   firstName String
   lastName  String
   File      File[]
+  Message   Message[]
 }
 
 enum UploadStatus {
@@ -35,11 +36,29 @@ model File {
 
   uploadStatus UploadStatus @default(PENDING)
   url          String
-  key          String @unique
+  key          String       @unique
+
+  Message Message[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   User   User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String?
+}
+
+model Message {
+  id   String @id @default(cuid())
+  text String @db.Text()
+
+  isUserMessage Boolean
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  User   User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String?
+
+  File   File?   @relation(fields: [fileId], references: [id])
+  fileId String?
 }

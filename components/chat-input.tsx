@@ -7,9 +7,9 @@ import { SendHorizonal } from 'lucide-react'
 
 const ChatInput = () => {
   return (
-    <div className="flex w-full gap-2 ">
+    <div className="flex w-full gap-2 items-end">
       <Textarea autoFocus rows={1} placeholder="Ask me something." className='resize-none text-base' />
-      <Button size='sm' className='flex gap-x-2 justify-center items-center'>
+      <Button className='flex gap-x-2 justify-center items-center px-6'>
         Send
         <SendHorizonal className='h-4 w-4'/>
       </Button>
