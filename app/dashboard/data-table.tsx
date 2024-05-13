@@ -37,7 +37,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
 
     const [sorting, setSorting] = useState<SortingState>([]);
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-
+    
     const table = useReactTable({
         data,
         columns,
@@ -70,7 +70,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
                 
             </div>
             <div className="rounded-md border w-full">
-                <div className="overflow-scroll h-[calc(100dvh-15rem)] max-h-calc(100dvh-15rem)]">
+                <div className="overflow-scroll overflow-x-hidden h-[calc(100dvh-15rem)] max-h-calc(100dvh-15rem)]">
                 <Table>
                     <TableHeader>
                     {table.getHeaderGroups().map((headerGroup) => (
@@ -105,8 +105,8 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
                         ))
                     ) : (
                         <TableRow>
-                        <TableCell colSpan={columns.length} className="h-24 text-center">
-                        <div className='flex flex-col justify-center items-center gap-y-2 h-full my-4'>
+                        <TableCell colSpan={columns.length} className="text-center">
+                        <div className='flex flex-col justify-center items-center gap-y-2 my-10 h-full'>
                             <Ghost className='w-6 h-6 text-zinc-700'/>
                             <p className='text-zinc-600 font-medium text-sm'>{"It's a bit lonely around here..."}</p>
                             <p className='text-zinc-500 text-xs font-normal'>{"Upload your first PDF :)"}</p>

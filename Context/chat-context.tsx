@@ -30,6 +30,7 @@ export const ChatContextProvider = ({fileId, children}: ChatContextProviderProps
 
     const { mutate: sendMessage } = useMutation({
         mutationFn: async ({message} : {message: string}) => {
+            setIsLoading(true)
             const response = await fetch('/api/message', {
                 method: 'POST',
                 body: JSON.stringify({
@@ -41,8 +42,11 @@ export const ChatContextProvider = ({fileId, children}: ChatContextProviderProps
             if (!response.ok) {
                 throw new Error("Failed to send mesage");
             }
+            
+            setIsLoading(false);
+            setMessage('');
 
-            return response.body;
+            return;
         }
     });
 

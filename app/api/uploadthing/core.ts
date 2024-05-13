@@ -49,24 +49,21 @@ export const ourFileRouter = {
 
         const pageLevelDocs = await loader.load();
 
-        const pagesAmt = pageLevelDocs.length;
+        // const pagesAmt = pageLevelDocs.length;
 
         // Vectorize and index pdf
-        const pineconeIndex = pc.index('pdf-chatinator')
+        const pineconeIndex = pc.index(process.env.PINECONE_INDEX!)
 
-        const embeddings = new OpenAIEmbeddings({
-          openAIApiKey: process.env.OPENAI_API_KEY,
-        });
+        const embeddings = new OpenAIEmbeddings();
 
         await PineconeStore.fromDocuments(
           pageLevelDocs,
           embeddings,
-          {pineconeIndex: pineconeIndex,
+          {
+            pineconeIndex: pineconeIndex,
             namespace: createdFile.id
           }
         )
-        
-
 
       } catch {
         

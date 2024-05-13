@@ -26,7 +26,7 @@ const PdfChatPage = async ({ params }: PdfChatPageProps) => {
                 
                 <div className='flex flex-col md:flex-row w-full gap-4 my-4'>
                     <PdfRenderPage pdfUrl={file.url} />
-                    <ChatWrapper />
+                    <ChatWrapper fileId={file.id}/>
                 </div>
                 
         
