@@ -84,9 +84,6 @@ const UploadDropZone = ({ setIsOpen }: DropzoneProps) => {
                 setUploadProgress(100);
                 setIsUploading(false);
             }}
-            onError={() => {
-                console.log("Here in on error!")
-            }}
         >
             {({getInputProps, getRootProps, acceptedFiles, open}) => (
                 <div {...getRootProps()} className='border h-64 border-dashed border-gray-300 rounded-lg cursor-pointer bg-zinc-50'

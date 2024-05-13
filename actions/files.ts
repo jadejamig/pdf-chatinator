@@ -5,6 +5,7 @@ import { revalidatePath } from "next/cache";
 import { getKindeUser } from "./users";
 import { UTApi } from "uploadthing/server";
 // import { getDbUserByKindeId } from "./users";
+const MESSAGE_LIMIT = 10
 
 export async function getUserFiles() {
     
@@ -34,7 +35,6 @@ export async function deleteFileById(key: string) {
         })
 
         if (!deletedFile) {
-            console.log("No deleted file")
             return { error: "Internal Server Error.", status: 500}
         }
             
@@ -60,4 +60,26 @@ export async function getFileFromDb(id: string ) {
     return await prisma.file.findUnique({
         where: { id: id }
     })
+}
+
+export async function getFileMessages(fileId: string, cursor: string | undefined) {
+    const user = await getKindeUser();
+
+    if (!user) return null;
+
+    const messages = await prisma.message.findMany({
+        where: { fileId: fileId},
+        orderBy: { createdAt: 'desc' },
+        take: MESSAGE_LIMIT + 1,
+        cursor: cursor ? { id: cursor } : undefined,
+        select: { id: true, isUserMessage: true, createdAt: true, text: true}
+    });
+
+    let nextCursor: string | undefined = undefined;
+    if (messages.length > MESSAGE_LIMIT) {
+        const nextItem = messages.pop();
+        nextCursor = nextItem?.id
+    }
+
+    return { messages, nextCursor };
 }
