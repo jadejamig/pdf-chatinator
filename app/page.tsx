@@ -3,6 +3,9 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import {RegisterLink, LoginLink} from "@kinde-oss/kinde-auth-nextjs/components";
 import { MoveRight } from "lucide-react";
 import Link from "next/link";
+import { BiLogoGithub } from "react-icons/bi";
+import { FaGithub } from "react-icons/fa";
+
 
 export default function Home() {
   return (
@@ -17,17 +20,18 @@ export default function Home() {
           </CardHeader>
           <CardContent className="flex flex-col gap-y-4">
               <Link href="/dashboard">
-                <Button className="flex w-full">
-                
-                  Get Started
-                  <MoveRight className="pl-2"/>
+                <Button className="flex w-full ">
+                  <span className="font-bold bg-gradient-to-r text-base from-emerald-400 via-emerald-500 to-lime-300  inline-block text-transparent bg-clip-text">
+                    Get Started
+                  </span>
                 </Button>
               </Link>
               
-            <div className="flex flex-row justify-center items-center gap-x-2">
-              <div className="w-full h-px bg-zinc-400" /> 
-                <p className="text-xs text-nowrap">by Jade Jamig</p>
-              <div className="w-full h-px bg-zinc-400"/>
+            <div>
+                <a href="https://github.com/jadejamig" target="_blank" className="flex flex-row justify-center items-center gap-x-2" >
+                  <p className="text-xs text-nowrap">by @JadeJamig</p>
+                  <FaGithub className="h-5 w-5"/>
+                </a>
             </div>
           </CardContent>
         </Card>

@@ -1,9 +1,7 @@
 import { getUserFiles } from '@/actions/files';
 import NavigationBar from '@/components/navbar';
-import { Ghost, Loader } from 'lucide-react';
 import { columns } from './columns';
 import { DataTable } from './data-table';
-import { cn } from '@/lib/utils';
 
 const Dashboard = async () => {
   
