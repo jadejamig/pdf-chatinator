@@ -103,3 +103,5 @@ export async function POST(req: Request) {
 
     return new StreamingTextResponse(stream);
 }
+
+export const maxDuration = 30;

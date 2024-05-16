@@ -13,11 +13,6 @@ const Dashboard = async () => {
 
             <NavigationBar/>
             
-          
-            {/* <div className='flex flex-row gap-x-2 mt-8'>
-              <UploadButton/>
-            </div> */}
-            
             <DataTable columns={columns} data={retrievedfiles ?? []} />
             
         </div>

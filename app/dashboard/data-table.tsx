@@ -54,7 +54,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
     })
 
     return (
-        <div className="flex flex-col gap-y-6 bg-zinc-900 rounded-xl py-10 px-10">
+        <div className="flex flex-col gap-y-6 bg-zinc-900 rounded-xl py-5 md:py-10 px-4 md:px-10">
             <div className="flex justify-between items-center gap-x-2 ">
                 <Input
                     placeholder="Filter name..."
@@ -69,7 +69,9 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
                 
             </div>
             <div className="w-full">
-                <div className="rounded-md border border-zinc-400 overflow-scroll overflow-x-hidden h-[calc(100dvh-24rem)] max-h-calc(100dvh-24rem)] shadow-md">
+                <div className="rounded-md border border-zinc-400 overflow-scroll overflow-x-hidden
+                                h-[calc(100dvh-21rem)] max-h-[calc(100dvh-21rem)]
+                                md:h-[calc(100dvh-25rem)] md:max-h-calc(100dvh-25rem)] shadow-md">
                 <Table className="">
                     <TableHeader>
                     {table.getHeaderGroups().map((headerGroup) => (

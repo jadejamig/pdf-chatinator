@@ -1,3 +1,5 @@
+export const maxDuration = 30;
+
 import { getFileFromDb } from '@/actions/files';
 import PdfViewNavBar from '@/components/pdfViewNavbar';
 import { Ghost } from 'lucide-react';

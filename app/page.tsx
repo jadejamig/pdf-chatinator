@@ -16,7 +16,7 @@ export default function Home() {
             <CardTitle className="flex flex-col ">
               <p className="font-black ">PDF Chatinator</p>
             </CardTitle>
-            <CardDescription className="text-zinc-700 font-medium">Talk to your PDF files using AI technology.</CardDescription>
+            <CardDescription className="text-zinc-700 font-medium">Talk to your PDF files using generative AI.</CardDescription>
           </CardHeader>
           <CardContent className="flex flex-col gap-y-4">
               <Link href="/dashboard">
