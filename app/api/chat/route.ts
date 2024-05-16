@@ -7,6 +7,7 @@ import prisma from '@/prisma/db';
 import { OpenAIEmbeddings } from "@langchain/openai";
 import { PineconeStore } from "@langchain/pinecone";
 import { NextResponse } from 'next/server';
+import { createPrompt, getPrompt, isPromptExpired, updatePrompt } from '@/actions/prompt';
 
 const openai = new OpenAI();
 
@@ -24,6 +25,24 @@ export async function POST(req: Request) {
         return new NextResponse("Unauthorized", {status: 401})
 
     const userId = user.id;
+
+    //
+    const isExpired = await isPromptExpired();
+    console.log({isExpired})
+    if (isExpired === null || isExpired) {
+        await createPrompt()
+        console.log("here1")
+    } else {
+        console.log("here2")
+        const prompt = await getPrompt();
+        if (!prompt) return
+
+        if (prompt.count >= 5)
+            return new NextResponse("Too many requests today!", {status: 400})
+
+        await updatePrompt()
+    }
+    //
 
     const currentMessage = messages.pop();
     

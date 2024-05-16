@@ -5,6 +5,7 @@ import { AIBubble, UserBubble } from './chat-bubble'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import { Message } from '@prisma/client'
 
+// NOT USED !!!!
 const Messages = ({ fileId }: { fileId: string }) => {
 
   const fetchMessages = async ({ pageParam }: { pageParam: string | null }) => {

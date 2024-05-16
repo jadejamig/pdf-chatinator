@@ -6,6 +6,7 @@ import { Button } from './ui/button'
 import { SendHorizonal } from 'lucide-react'
 import { ChatContext } from '@/Context/chat-context'
 
+// NOT USED !!!1
 const ChatInput = () => {
   const { addMessage, handleInputChange, message, isLoading } = useContext(ChatContext)
 

@@ -21,6 +21,7 @@ model User {
   lastName  String
   File      File[]
   Message   Message[]
+  Prompt    Prompt[]
 }
 
 enum UploadStatus {
@@ -61,4 +62,15 @@ model Message {
 
   File   File?   @relation(fields: [fileId], references: [id])
   fileId String?
+}
+
+model Prompt {
+  id    String @id @default(cuid())
+  count Int    @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  User   User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String?
 }

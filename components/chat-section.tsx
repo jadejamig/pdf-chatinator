@@ -1,14 +1,18 @@
+'use client';
+
 import { Ghost, LoaderCircle, SendHorizonal } from 'lucide-react';
 import { Button } from './ui/button';
 import { Textarea } from './ui/textarea';
 
-import { Message, useChat } from 'ai/react';
-import { AIBubble, UserBubble } from './chat-bubble';
-import { useEffect, useRef, useState, useTransition } from 'react';
 import { getFileMessages } from '@/actions/messages';
+import { Message, useChat } from 'ai/react';
+import { useEffect, useRef, useState, useTransition } from 'react';
+import { AIBubble, UserBubble } from './chat-bubble';
 
-import Skeleton, { SkeletonTheme }from 'react-loading-skeleton'
-import 'react-loading-skeleton/dist/skeleton.css'
+import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
+
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 
 const ChatSection = ({ fileId }: { fileId: string }) => {
   const myRef = useRef<HTMLDivElement>(null);
@@ -17,6 +21,8 @@ const ChatSection = ({ fileId }: { fileId: string }) => {
 
   const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat();
   const [dbMessages, setDbMessages] = useState<Message[]>([]);
+
+  // const { user,  } = useKindeBrowserClient();
 
   const scrollToBottom = () => {
     if (myRef.current) {
@@ -73,7 +79,7 @@ const ChatSection = ({ fileId }: { fileId: string }) => {
           )
         }
         <div>
-          <form className="flex w-full gap-2 items-end" onSubmit={e => {
+          <form className="flex w-full gap-2 items-end" onSubmit={async (e) => {
             handleSubmit(e, {
               options: { headers: { fileId: fileId} }
             })

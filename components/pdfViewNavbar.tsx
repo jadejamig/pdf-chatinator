@@ -5,7 +5,7 @@ import { File } from '@prisma/client';
 import { ChevronLeft, MoreHorizontal, RotateCcw, Trash } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from './ui/button';
-import { useToast } from './ui/use-toast';
+import { toast } from 'sonner';
 import { deleteFileById } from '@/actions/files';
 import { useRouter } from 'next/navigation';
 
@@ -14,7 +14,7 @@ interface PdfViewNavBarProps {
 }
 
 const PdfViewNavBar = ({ file }: PdfViewNavBarProps) => {
-  const { toast } = useToast();
+  // const { toast } = useToast();
   const router = useRouter();
   return (
     <div className='flex flex-col justify-center items-center w-full bg-zinc-900 text-zinc-50 rounded-xl mt-4'>
@@ -47,19 +47,16 @@ const PdfViewNavBar = ({ file }: PdfViewNavBarProps) => {
                     const { success } = await deleteFileById(file.key)
                     
                     if (!success) {
-                      toast({
-                        duration: 4000,
-                        variant: "default",
-                        description: `💥 Something went wrong, couldn't delete the file!`
-                      })
+                      toast.error("Something went wrong, couldn't delete the file.")
+                      // toast({
+                      //   duration: 4000,
+                      //   variant: "default",
+                      //   description: `💥 Something went wrong, couldn't delete the file!`
+                      // })
                       return
                     }
 
-                    toast({
-                      duration: 4000,
-                      variant: "success",
-                      description: `🗑 Deleted successfully!`
-                    })
+                    toast.success("Deleted successfully!")
                     router.push('/dashboard')
 
                   }}

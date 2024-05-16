@@ -6,7 +6,7 @@ import Dropzone from 'react-dropzone'
 import { BiSolidFilePdf } from 'react-icons/bi'
 import { Progress } from './ui/progress';
 import { useUploadThing } from '@/lib/uploadthing';
-import { useToast } from './ui/use-toast';
+import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 
 interface DropzoneProps {
@@ -18,7 +18,7 @@ const UploadDropZone = ({ setIsOpen }: DropzoneProps) => {
     const [uploadProgress, setUploadProgress] = useState<number>(0);
     const [isError, setIsError] = useState<boolean>(false);
 
-    const { toast } = useToast();
+    // const { toast } = useToast();
     const router = useRouter();
 
     const { startUpload } = useUploadThing(
@@ -26,20 +26,22 @@ const UploadDropZone = ({ setIsOpen }: DropzoneProps) => {
         {   
             onClientUploadComplete: ([res]) => {
                 
-                setIsOpen(false);
-                router.refresh();
-                toast({
-                    duration: 4000,
-                    variant: "success",
-                    description: `🎉 Successfully uploaded pdf ${res.name}`
-                })
+                // setIsOpen(false);
+                // router.refresh();
+                // toast.success(`🎉 Successfully uploaded pdf ${res.name}`)
+                // toast({
+                //     duration: 4000,
+                //     variant: "success",
+                //     description: `🎉 Successfully uploaded pdf ${res.name}`
+                // })
             },
             onUploadError: (e) => {
-                toast({
-                    duration: 2000,
-                    variant: "destructive",
-                    description: e.message //"Something went wrong! Couldn't upload your file."
-                })
+                toast.error(e.message)
+                // toast({
+                //     duration: 2000,
+                //     variant: "destructive",
+                //     description: e.message //"Something went wrong! Couldn't upload your file."
+                // })
             }
         },
     );
@@ -83,6 +85,10 @@ const UploadDropZone = ({ setIsOpen }: DropzoneProps) => {
                 clearInterval(progressInterval);
                 setUploadProgress(100);
                 setIsUploading(false);
+                setIsOpen(false);
+                router.refresh();
+                toast.success(`🎉 Successfully uploaded pdf`)
+                
             }}
         >
             {({getInputProps, getRootProps, acceptedFiles, open}) => (

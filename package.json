@@ -44,6 +44,7 @@
     "react-resize-detector": "^10.0.1",
     "react-textarea-autosize": "^8.5.3",
     "remark-gfm": "^4.0.0",
+    "sonner": "^1.4.41",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
     "uploadthing": "^6.10.3",
