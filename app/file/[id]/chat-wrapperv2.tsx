@@ -1,6 +1,6 @@
 "use client";
 
-import { ChatContextProvider } from '@/context/chat-context';
+import { ChatContextProvider } from '@/Context/chat-context';
 import ChatInput from '@/components/chat-input';
 import Messages from '@/components/messages';
 
