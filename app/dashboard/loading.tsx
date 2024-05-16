@@ -16,7 +16,7 @@ const DashboardLoader = () => {
               <Skeleton height={30} width={100} className='text-red-500'/>
             </div>
 
-            <div className='flex flex-col gap-y-2 my-4 p-4 border rounded-lg'>
+            <div className='flex flex-col gap-y-2 my-4 p-4 border border-zinc-400 rounded-lg'>
               <div className='flex w-full flex-row gap-x-2 mt-2'>
                 <Skeleton height={30} containerClassName="flex-1"/>
                 <Skeleton height={30} containerClassName="flex-1"/>
