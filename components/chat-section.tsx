@@ -35,7 +35,7 @@ const ChatSection = ({ fileId }: { fileId: string }) => {
       const formattedMessages: {id: string, content: string, role: 'user' | 'assistant'}[] = fetchedMessages.map((message) => ({id: message.id, content: message.text, role: message.isUserMessage ? 'user' : 'assistant'}))
       setDbMessages(formattedMessages)
     })
-  }, [])
+  }, [fileId])
 
   return (
     <div className='flex flex-col w-full h-[calc(100dvh-5rem)] justify-end gap-2'>

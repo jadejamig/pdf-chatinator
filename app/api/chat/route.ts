@@ -6,6 +6,7 @@ import { pc } from "@/lib/pinecone";
 import prisma from '@/prisma/db';
 import { OpenAIEmbeddings } from "@langchain/openai";
 import { PineconeStore } from "@langchain/pinecone";
+import { NextResponse } from 'next/server';
 
 const openai = new OpenAI();
 
@@ -20,14 +21,14 @@ export async function POST(req: Request) {
     const user = await getKindeUser();
 
     if (!user)
-        return { error: "Unauthorized", status: 401 };
+        return new NextResponse("Unauthorized", {status: 401})
 
     const userId = user.id;
 
     const currentMessage = messages.pop();
     
     if (!currentMessage)
-        return { error: "Invalid message", status: 404 };
+        return new NextResponse("Invalid message", {status: 404})
 
     await prisma.message.create({
         data: {
