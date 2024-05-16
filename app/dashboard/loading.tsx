@@ -5,7 +5,7 @@ import 'react-loading-skeleton/dist/skeleton.css'
 const DashboardLoader = () => {
   return (
 
-    <main className="flex flex-1 w-full justify-center items-center h-dvh max-h-dvh bg-zinc-950 bg-[url('/grid.svg')] p-10">
+    <main className="flex flex-1 w-full justify-center items-center h-dvh max-h-dvh bg-zinc-950 bg-[url('/grid.svg')] p-4 md:p-10">
         <div className='flex flex-col max-w-6xl w-full h-full gap-y-6'>
 
           <NavigationBar/>
