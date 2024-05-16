@@ -1,4 +1,4 @@
-import { LoaderCircle, SendHorizonal } from 'lucide-react';
+import { Ghost, LoaderCircle, SendHorizonal } from 'lucide-react';
 import { Button } from './ui/button';
 import { Textarea } from './ui/textarea';
 
@@ -43,13 +43,18 @@ const ChatSection = ({ fileId }: { fileId: string }) => {
           <SkeletonTheme baseColor="#202020" highlightColor="#444">
             <div className='flex flex-col gap-y-2 justify-center items-center h-[calc(100dvh-8rem)] max-h-calc(100dvh-8rem)]
                           bg-zinc-800 rounded-lg border border-zinc-700 w-full'>
-                  <div className='w-full mt-2 h-full rounded-md shadow px-4 overflow-scroll'>
+                  <div className='w-full mt-2 h-full rounded-md shadow px-4 overflow-auto'>
                     <Skeleton height={30} containerClassName="flex-1" count={30} className='mt-2'/>
                   </div>
             </div>
           </SkeletonTheme>
+          ) : [...dbMessages, ...messages].length === 0 ? (
+            <div  className='flex flex-col gap-y-2 justify-center items-center w-full h-[calc(100dvh-8rem)] bg-zinc-800 rounded-lg border border-zinc-700'>
+                            <Ghost className='w-6 h-6 text-zinc-400'/>
+                            <p className='text-zinc-500 font-medium text-sm'>{"It's a bit lonely around here..."}</p>
+            </div>
           ) : (
-          <div ref={myRef} className='justify-end w-full h-[calc(100dvh-8rem)] overflow-scroll overflow-x-hidden
+          <div ref={myRef} className='justify-end w-full h-[calc(100dvh-8rem)] overflow-auto overflow-x-hidden
                                       shadow px-4 bg-zinc-800 rounded-lg border border-zinc-700'>
             {[...dbMessages, ...messages].map((m, i) => {
               return (
@@ -81,7 +86,7 @@ const ChatSection = ({ fileId }: { fileId: string }) => {
                       onChange={handleInputChange}
                       disabled={isFetching || isLoading}
             />
-            <Button className='flex gap-x-2 text-zinc-300 bg-zinc-800 hover:bg-zinc-700 justify-center items-center px-6' disabled={isFetching || isLoading}>
+            <Button className='flex gap-x-2 text-zinc-300 bg-zinc-800 hover:bg-zinc-700 justify-center items-center px-6 disabled:opacity-90' disabled={isFetching || isLoading}>
               Send
               <SendHorizonal className='h-4 w-4'/>
             </Button>

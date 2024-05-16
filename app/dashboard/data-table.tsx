@@ -108,9 +108,9 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
                         <TableRow>
                         <TableCell colSpan={columns.length} className="text-center">
                         <div className='flex flex-col justify-center items-center gap-y-2 my-10 h-full'>
-                            <Ghost className='w-6 h-6 text-zinc-700'/>
+                            <Ghost className='w-6 h-6 text-zinc-500'/>
                             <p className='text-zinc-600 font-medium text-sm'>{"It's a bit lonely around here..."}</p>
-                            <p className='text-zinc-500 text-xs font-normal'>{"Upload your first PDF :)"}</p>
+                            <p className='text-zinc-700 text-xs font-normal'>{"Upload your first PDF :)"}</p>
                         </div>
                         </TableCell>
                         </TableRow>

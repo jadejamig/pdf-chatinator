@@ -11,7 +11,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaAutosizeProps>(
     return (
       <TextAreaAutosize
         className={cn(
-          "flex w-full rounded-md px-3 py-2 placeholder:text-zinc-500 disabled:cursor-not-allowed disabled:opacity-50",
+          "flex w-full rounded-md px-3 py-2 placeholder:text-zinc-500 disabled:cursor-not-allowed disabled:opacity-90",
           className
         )}
         ref={ref}
