@@ -19,7 +19,7 @@ const PdfViewNavBar = ({ file }: PdfViewNavBarProps) => {
   return (
     <div className='flex flex-col justify-center items-center w-full bg-zinc-900 text-zinc-50 rounded-xl mt-4'>
       <div className='flex justify-between items-center w-full gap-x-8 px-2'>
-        <Button variant='ghost' className='p-0'>
+        <Button variant='ghost' className='py-0 hover:bg-zinc-800 text-zinc-50 hover:text-zinc-50'>
           <Link href="/dashboard" className='flex gap-x-2 items-center'>
             <ChevronLeft className='h-4 w-4'/>
             Dashboard
@@ -30,19 +30,19 @@ const PdfViewNavBar = ({ file }: PdfViewNavBarProps) => {
 
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="p-0">
+              <Button variant="ghost" className="py-0 hover:bg-zinc-800 hover:text-zinc-50">
                 <span className="sr-only">Open menu</span>
                 <MoreHorizontal className="h-4 w-4" />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuGroup>
-                <DropdownMenuItem>
+            <DropdownMenuContent align="end" className='bg-zinc-700 border-none'>
+              <DropdownMenuGroup className='bg-zinc-700'>
+                <DropdownMenuItem className='bg-zinc-700 focus:bg-zinc-600 text-zinc-200 focus:text-zinc-200'>
                   <RotateCcw className="mr-2 h-4 w-4" />
                   <span>Reset chat</span>
                 </DropdownMenuItem>
                 <DropdownMenuItem 
-                  className='text-red-600 focus:text-red-700'
+                  className='text-red-500 focus:text-red-500 bg-zinc-700 focus:bg-zinc-600'
                   onClick={ async () => {
                     const { success } = await deleteFileById(file.key)
                     

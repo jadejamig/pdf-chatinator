@@ -31,9 +31,9 @@ const CellAction = ({ row }: CellContext<File, unknown>) => {
           <MoreHorizontal className="h-4 w-4 text-zinc-50" />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
+      <DropdownMenuContent align="end" className="border-none bg-zinc-700">
         <DropdownMenuItem 
-          className='text-red-600 focus:text-red-700 bg-red-100/50'
+          className='text-red-400 focus:text-red-500 bg-zinc-700 focus:bg-zinc-600'
           onClick={ async () => {
             const { success } = await deleteFileById(file.key)
                   

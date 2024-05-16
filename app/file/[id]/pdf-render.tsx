@@ -27,7 +27,8 @@ const PdfRenderPage = ({ pdfUrl }: PdfRenderPageProps) => {
 
   const PdfLoading = () => {
     return (
-      <div className='flex flex-col gap-y-2 justify-center items-center h-[calc(100dvh-7rem)] max-h-calc(100dvh-7rem)] w-full'>
+      <div className='flex flex-col gap-y-2 justify-center items-center h-[calc(100dvh-7rem)] max-h-calc(100dvh-7rem)]
+                      w-full text-zinc-50'>
           <LoaderCircle className='w-5 h-5 animate-spin font-light'/>
           <p>{"Please wait while I fetch your file ✌🏻"}</p>
       </div>
@@ -36,7 +37,8 @@ const PdfRenderPage = ({ pdfUrl }: PdfRenderPageProps) => {
 
   const PageLoading = () => {
     return (
-      <div className='flex flex-col gap-y-2 justify-center items-center h-[calc(100dvh-7rem)] max-h-calc(100dvh-7rem)] w-full'>
+      <div className='flex flex-col gap-y-2 justify-center items-center h-[calc(100dvh-7rem)] max-h-calc(100dvh-7rem)]
+                      w-full text-zinc-50'>
           <FileText className='w-10 h-10 animate-spin font-light text-zinc-400'/>
       </div>
     )

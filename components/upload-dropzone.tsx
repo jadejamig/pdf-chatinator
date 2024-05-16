@@ -86,13 +86,13 @@ const UploadDropZone = ({ setIsOpen }: DropzoneProps) => {
             }}
         >
             {({getInputProps, getRootProps, acceptedFiles, open}) => (
-                <div {...getRootProps()} className='border h-64 border-dashed border-gray-300 rounded-lg cursor-pointer bg-zinc-50'
+                <div {...getRootProps()} className='border h-64 border-dashed border-zinc-500 rounded-lg cursor-pointer bg-zinc-800'
                     onClick={open}
                 >
                     <div className='flex flex-col gap-y-2 justify-center items-center h-full w-full'>
                         <input {...getInputProps()} />
-                        <Plus className='text-zinc-500'/>
-                        <p className='text-sm text-zinc-500'>
+                        <Plus className='text-zinc-400'/>
+                        <p className='text-sm text-zinc-400'>
                             <span className='font-semibold'>{"Click to upload "}</span>
                             or drag and drop.
                         </p>

@@ -7,7 +7,7 @@ import { AIBubble, UserBubble } from './chat-bubble';
 import { useEffect, useRef, useState, useTransition } from 'react';
 import { getFileMessages } from '@/actions/messages';
 
-import Skeleton from 'react-loading-skeleton'
+import Skeleton, { SkeletonTheme }from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 
 const ChatSection = ({ fileId }: { fileId: string }) => {
@@ -40,11 +40,14 @@ const ChatSection = ({ fileId }: { fileId: string }) => {
   return (
     <div className='flex flex-col w-full h-[calc(100dvh-5rem)] justify-end gap-2'>
         { isFetching ? (
-          <div className='flex flex-col gap-y-2 justify-center items-center h-[calc(100dvh-8rem)] max-h-calc(100dvh-8rem)] w-full'>
-                <div className='w-full mt-2 h-full rounded-md shadow px-4 overflow-scroll'>
-                  <Skeleton height={30} containerClassName="flex-1" count={30} className='mt-2'/>
-                </div>
-          </div>
+          <SkeletonTheme baseColor="#202020" highlightColor="#444">
+            <div className='flex flex-col gap-y-2 justify-center items-center h-[calc(100dvh-8rem)] max-h-calc(100dvh-8rem)]
+                          bg-zinc-800 rounded-lg border border-zinc-700 w-full'>
+                  <div className='w-full mt-2 h-full rounded-md shadow px-4 overflow-scroll'>
+                    <Skeleton height={30} containerClassName="flex-1" count={30} className='mt-2'/>
+                  </div>
+            </div>
+          </SkeletonTheme>
           ) : (
           <div ref={myRef} className='justify-end w-full h-[calc(100dvh-8rem)] overflow-scroll overflow-x-hidden
                                       shadow px-4 bg-zinc-800 rounded-lg border border-zinc-700'>

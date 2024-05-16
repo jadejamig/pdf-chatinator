@@ -27,7 +27,7 @@ const NavigationBar = () => {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="bg-zinc-700 border-none focus:border-none hover:border-none">
-              <DropdownMenuItem className="flex justify-center items-center gap-x-2 text-zinc-50 focus:text-zinc-50 focus:bg-zinc-600 border-none focus:border-none hover:border-none">
+              <DropdownMenuItem className="flex justify-center items-center gap-x-2 text-zinc-50 focus:text-zinc-50 focus:bg-zinc-600 border-none outline-none">
                   {/* <Button className="gap-x-2 text-zinc-50 hover:bg-zinc-800 hover:text-zinc-50 hidden md:flex" variant="ghost"> */}
                     <LogOutIcon className="h-4 w-4"/>
                     <LogoutLink className="border-none hover:border-none">Log out</LogoutLink>

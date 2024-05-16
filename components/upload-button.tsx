@@ -26,7 +26,7 @@ const UploadButton = () => {
                     <span>new file</span>
                 </Button>
             </DialogTrigger>
-            <DialogContent className="rounded-lg">
+            <DialogContent className="rounded-lg bg-zinc-800 border-none">
                 <DialogHeader>
                 </DialogHeader>
                 <UploadDropZone setIsOpen={setIsOpen} />
