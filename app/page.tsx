@@ -29,7 +29,7 @@ export default function Home() {
               
             <div>
                 <a href="https://github.com/jadejamig" target="_blank" className="flex flex-row justify-center items-center gap-x-2" >
-                  <p className="text-xs text-nowrap">by @JadeJamig</p>
+                  <p className="text-xs text-nowrap underline">by @JadeJamig</p>
                   <FaGithub className="h-5 w-5"/>
                 </a>
             </div>
