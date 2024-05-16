@@ -69,7 +69,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
                 
             </div>
             <div className="w-full">
-                <div className="rounded-md border border-zinc-400 overflow-scroll overflow-x-hidden
+                <div className="rounded-md border border-zinc-400 overflow-auto overflow-x-hidden
                                 h-[calc(100dvh-19rem)] max-h-[calc(100dvh-19rem)]
                                 md:h-[calc(100dvh-25rem)] md:max-h-calc(100dvh-25rem)] shadow-md">
                 <Table className="">
