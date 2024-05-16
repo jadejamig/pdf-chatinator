@@ -21,12 +21,12 @@ const PdfChatPage = async ({ params }: PdfChatPageProps) => {
         return notFound()
 
     return (
-        <main className="flex flex-col flex-1 justify-between items-center h-dvh bg-zinc-950 bg-[url('/grid.svg')]">
+        <main className="flex flex-col flex-1 justify-between items-center h-dvh max-h-dvh bg-zinc-950 bg-[url('/grid.svg')]">
             <div className='flex flex-col w-full max-w-6xl px-4'>
 
                 <PdfViewNavBar file={file}/>
                 
-                <div className='flex flex-col md:flex-row w-full gap-4 my-4'>
+                <div className='flex flex-col md:flex-row w-full gap-4 mt-2'>
                     <PdfRenderPage pdfUrl={file.url} />
                     <ChatWrapper fileId={file.id}/>
                 </div>

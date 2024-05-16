@@ -46,7 +46,8 @@ const ChatSection = ({ fileId }: { fileId: string }) => {
                 </div>
           </div>
           ) : (
-          <div ref={myRef} className='justify-end w-full h-[calc(100dvh-8rem)] overflow-scroll overflow-x-hidden rounded-md shadow px-4'>
+          <div ref={myRef} className='justify-end w-full h-[calc(100dvh-8rem)] overflow-scroll overflow-x-hidden
+                                      shadow px-4 bg-zinc-800 rounded-lg border border-zinc-700'>
             {[...dbMessages, ...messages].map((m, i) => {
               return (
                 <div key={i} className='my-4'>
@@ -72,12 +73,12 @@ const ChatSection = ({ fileId }: { fileId: string }) => {
           >
             <Textarea autoFocus rows={1} 
                       placeholder="Ask me something ..." 
-                      className='resize-none text-base'
+                      className='resize-none text-base bg-zinc-800 text-zinc-300 outline-none'
                       value={input}
                       onChange={handleInputChange}
                       disabled={isFetching || isLoading}
             />
-            <Button className='flex gap-x-2 justify-center items-center px-6' disabled={isFetching || isLoading}>
+            <Button className='flex gap-x-2 text-zinc-300 bg-zinc-800 hover:bg-zinc-700 justify-center items-center px-6' disabled={isFetching || isLoading}>
               Send
               <SendHorizonal className='h-4 w-4'/>
             </Button>

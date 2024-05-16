@@ -17,7 +17,7 @@ const PdfViewNavBar = ({ file }: PdfViewNavBarProps) => {
   const { toast } = useToast();
   const router = useRouter();
   return (
-    <div className='flex flex-col justify-center items-center w-full bg-zinc-900 text-zinc-50 rounded-xl '>
+    <div className='flex flex-col justify-center items-center w-full bg-zinc-900 text-zinc-50 rounded-xl mt-4'>
       <div className='flex justify-between items-center w-full gap-x-8 px-2'>
         <Button variant='ghost' className='p-0'>
           <Link href="/dashboard" className='flex gap-x-2 items-center'>
@@ -71,8 +71,6 @@ const PdfViewNavBar = ({ file }: PdfViewNavBarProps) => {
             </DropdownMenuContent>
           </DropdownMenu>
       </div>
-
-      <div className="w-full h-px bg-zinc-300" />
     </div>
   )
 }
