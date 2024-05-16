@@ -28,7 +28,7 @@ export async function POST(req: Request) {
     const currentMessage = messages.pop();
     
     if (!currentMessage)
-        return new NextResponse("Invalid message", {status: 404})
+        return new NextResponse("Invalid message", {status: 400})
 
     await prisma.message.create({
         data: {

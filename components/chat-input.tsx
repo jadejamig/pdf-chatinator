@@ -4,7 +4,7 @@ import React, { useContext } from 'react'
 import { Textarea } from './ui/textarea'
 import { Button } from './ui/button'
 import { SendHorizonal } from 'lucide-react'
-import { ChatContext } from '@/Context/chat-context'
+import { ChatContext } from '@/context/chat-context'
 
 const ChatInput = () => {
   const { addMessage, handleInputChange, message, isLoading } = useContext(ChatContext)
