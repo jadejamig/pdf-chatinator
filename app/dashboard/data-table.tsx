@@ -54,24 +54,23 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
     })
 
     return (
-        <div className="flex flex-1 flex-col gap-y-2 mb-4">
-            <div className="flex justify-between items-center gap-x-2">
-                
+        <div className="flex flex-col gap-y-6 bg-zinc-900 rounded-xl py-10 px-10">
+            <div className="flex justify-between items-center gap-x-2 ">
                 <Input
                     placeholder="Filter name..."
                     value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
                     onChange={(event) =>
                         table.getColumn("name")?.setFilterValue(event.target.value)
                     }
-                    className="max-w-sm"
+                    className="max-w-sm shadow-sm"
                 />
 
                 <UploadButton/>
                 
             </div>
-            <div className="rounded-md border w-full">
-                <div className="overflow-scroll overflow-x-hidden h-[calc(100dvh-15rem)] max-h-calc(100dvh-15rem)]">
-                <Table>
+            <div className="w-full">
+                <div className="rounded-md border border-zinc-400 overflow-scroll overflow-x-hidden h-[calc(100dvh-24rem)] max-h-calc(100dvh-24rem)] shadow-md">
+                <Table className="">
                     <TableHeader>
                     {table.getHeaderGroups().map((headerGroup) => (
                         <TableRow key={headerGroup.id}>
@@ -121,12 +120,13 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
                 </Table>
                 </div>
             </div>
-            <div className="flex items-center justify-end space-x-2 py-4">
+            <div className="flex items-center justify-end space-x-2">
                 <Button
                     variant="outline"
                     size="sm"
                     onClick={() => table.previousPage()}
                     disabled={!table.getCanPreviousPage()}
+                    className="text-white bg-zinc-700"
                 >
                     Previous
                 </Button>
@@ -135,6 +135,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
                     size="sm"
                     onClick={() => table.nextPage()}
                     disabled={!table.getCanNextPage()}
+                    className="text-white bg-zinc-700"
                 >
                     Next
                 </Button>

@@ -7,6 +7,7 @@ type StreamResponse = {
     message: string,
     handleInputChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void,
     isLoading: boolean,
+    fileId: string
 }
 
 export const ChatContext = createContext<StreamResponse>({
@@ -14,6 +15,7 @@ export const ChatContext = createContext<StreamResponse>({
     message: "",
     handleInputChange: () => {},
     isLoading: false,
+    fileId: ""
 })
 
 interface ChatContextProviderProps {
@@ -60,7 +62,8 @@ export const ChatContextProvider = ({fileId, children}: ChatContextProviderProps
             addMessage: addMessage,
             message: message,
             handleInputChange: handleInputChange,
-            isLoading: isLoading
+            isLoading: isLoading,
+            fileId: fileId
         }}>
             {children}
         </ChatContext.Provider>

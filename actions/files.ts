@@ -1,9 +1,8 @@
 "use server";
 
 import prisma from "@/prisma/db";
-import { revalidatePath } from "next/cache";
-import { getKindeUser } from "./users";
 import { UTApi } from "uploadthing/server";
+import { getKindeUser } from "./users";
 // import { getDbUserByKindeId } from "./users";
 const MESSAGE_LIMIT = 10
 
@@ -44,8 +43,6 @@ export async function deleteFileById(key: string) {
         if (!success)
             return { error: "Internal Server Error.", status: 500}
 
-        // revalidatePath('/dashboard');
-
         return { success: "File deleted successfully.", status: 200}
     } catch {
         return { error: "Internal Server Error.", status: 500}
@@ -53,33 +50,29 @@ export async function deleteFileById(key: string) {
 }
 
 export async function getFileFromDb(id: string ) {
-    const user = await getKindeUser();
-
-    if (!user) return null;
-
     return await prisma.file.findUnique({
         where: { id: id }
     })
 }
 
-export async function getFileMessages(fileId: string, cursor: string | undefined) {
-    const user = await getKindeUser();
+// export async function getFileMessages(fileId: string, cursor: string | undefined, limit: number) {
+//     const user = await getKindeUser();
 
-    if (!user) return null;
+//     if (!user) return null;
 
-    const messages = await prisma.message.findMany({
-        where: { fileId: fileId},
-        orderBy: { createdAt: 'desc' },
-        take: MESSAGE_LIMIT + 1,
-        cursor: cursor ? { id: cursor } : undefined,
-        select: { id: true, isUserMessage: true, createdAt: true, text: true}
-    });
+//     const messages = await prisma.message.findMany({
+//         where: { fileId: fileId},
+//         orderBy: { createdAt: 'desc' },
+//         take: MESSAGE_LIMIT + 1,
+//         cursor: cursor ? { id: cursor } : undefined,
+//         select: { id: true, isUserMessage: true, createdAt: true, text: true}
+//     });
 
-    let nextCursor: string | undefined = undefined;
-    if (messages.length > MESSAGE_LIMIT) {
-        const nextItem = messages.pop();
-        nextCursor = nextItem?.id
-    }
+//     let nextCursor: string | undefined = undefined;
+//     if (messages.length > MESSAGE_LIMIT) {
+//         const nextItem = messages.pop();
+//         nextCursor = nextItem?.id
+//     }
 
-    return { messages, nextCursor };
-}
+//     return { messages, nextCursor };
+// }

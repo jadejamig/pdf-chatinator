@@ -6,12 +6,12 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="flex justify-center items-center h-dvh max-h-dvh w-dvw bg-gray-950 bg-[url('/grid.svg')]">
+    <div className="flex justify-center items-center h-dvh max-h-dvh w-dvw bg-zinc-950 bg-[url('/grid.svg')]">
       <div className="flex flex-col gap-y-2">
         <Card className="w-[350px] border border-zinc-900 bg-zinc-300">
           <CardHeader>
             <CardTitle className="flex flex-col ">
-              <p className="font-black">PDF Chatinator</p>
+              <p className="font-black ">PDF Chatinator</p>
             </CardTitle>
             <CardDescription className="text-zinc-700 font-medium">Talk to your PDF files using AI technology.</CardDescription>
           </CardHeader>

@@ -1,12 +1,61 @@
+"use client"
+
 import React from 'react'
 import { AIBubble, UserBubble } from './chat-bubble'
+import { useInfiniteQuery } from '@tanstack/react-query'
+import { Message } from '@prisma/client'
 
-const Messages = () => {
+const Messages = ({ fileId }: { fileId: string }) => {
+
+  const fetchMessages = async ({ pageParam }: { pageParam: string | null }) => {
+    const res = await fetch(`/api/message?cursor=${pageParam}&fileId=${fileId}`)
+    return res.json()
+  }
+  const {
+    data,
+    error,
+    fetchNextPage,
+    hasNextPage,
+    isFetching,
+    isFetchingNextPage,
+    status,
+  } = useInfiniteQuery({
+    queryKey: ['messages'],
+    queryFn: fetchMessages,
+    initialPageParam: null,
+    getNextPageParam: (lastPage, pages) => lastPage.nextCursor,
+  })
+
   return (
-    <div className='grid w-full gap-4 overflow-scroll rounded-md shadow px-4'>
-      {dummyMessage.map((message) => {
-        return message.author === "user" ? <UserBubble key={message.content} message={message.content}  /> : <AIBubble key={message.content}  message={message.content} />
-      })}
+    <div className='grid w-full gap-4 overflow-scroll overflow-x-hidden rounded-md shadow px-4 pb-4'>
+      <div>
+        <button
+          onClick={() => fetchNextPage()}
+          disabled={!hasNextPage || isFetchingNextPage}
+        >
+          {isFetchingNextPage
+            ? 'Loading more...'
+            : hasNextPage
+              ? 'Load More'
+              : 'Nothing more to load'}
+        </button>
+      </div>
+      <div>{isFetching && !isFetchingNextPage ? 'Fetching...' : null}</div>
+      {
+        status === 'pending' ? (<p>Loading...</p>) :
+        status === 'error' ? (<p>Error: {error.message}</p>) :
+        (
+          data.pages.map((group, i) => (
+            <div key={i} className='flex flex-col-reverse gap-y-4 '>
+              {group.data.map((message: Message) => {
+                { return message.isUserMessage ? <UserBubble key={message.id} message={message.text}  /> : <AIBubble key={message.id}  message={message.text} /> }
+              })}
+            </div>
+          ))
+        )
+      }
+
+      
     </div>
   )
 }

@@ -1,46 +1,48 @@
-import { getFileFromDb } from "@/actions/files";
-import { getKindeUser } from "@/actions/users";
-import { openai } from "@/lib/openai";
+import { getKindeUser } from '@/actions/users';
+import { CoreMessage, OpenAIStream, StreamingTextResponse } from 'ai';
+import OpenAI from 'openai';
+
 import { pc } from "@/lib/pinecone";
-import { SendMessageValidator } from "@/lib/validators/SendMessageValidator";
-import prisma from "@/prisma/db";
+import prisma from '@/prisma/db';
 import { OpenAIEmbeddings } from "@langchain/openai";
 import { PineconeStore } from "@langchain/pinecone";
-import { NextRequest, NextResponse } from "next/server";
-import { StreamingTextResponse, streamText, OpenAIStream } from 'ai';
 
-export const POST = async (req: NextRequest) => {
+const openai = new OpenAI();
+
+export async function POST(req: Request) {
+
+    const { messages } = await req.json() as { messages: CoreMessage[] };
+    const headers = new Headers(req.headers);
+    const fileId = headers.get('fileId');
+
+    if (!fileId) return
 
     const user = await getKindeUser();
 
-    if (!user?.id)
-        return new NextResponse("Unauthorized", { status: 401 });
+    if (!user)
+        return { error: "Unauthorized", status: 401 };
 
     const userId = user.id;
 
-    const body = await req.json();
-
-    const { fileId, message} = SendMessageValidator.parse(body);
-
-    const existingFile = await getFileFromDb(fileId);
-
-    if (!existingFile)
-        return new NextResponse("File not found!", { status: 404 });
+    const currentMessage = messages.pop();
+    
+    if (!currentMessage)
+        return { error: "Invalid message", status: 404 };
 
     await prisma.message.create({
         data: {
-            text: message,
-            isUserMessage: true,
+            text: currentMessage.content as string,
+            isUserMessage: currentMessage.role === 'user' ? true : false,
             userId: userId,
             fileId: fileId
         },
     });
 
-    // vectorize incoming user message
     const embeddings = new OpenAIEmbeddings();
-    
+
     const pineconeIndex = pc.index(process.env.PINECONE_INDEX!);
 
+    // vectorize incoming user message
     const vectorStore = await PineconeStore.fromExistingIndex(
         embeddings,
         {
@@ -48,24 +50,12 @@ export const POST = async (req: NextRequest) => {
             namespace: fileId
         }
     );
-    const results = await vectorStore.similaritySearch(message, 4); // we want 4 pages closest context
 
-    const prevMessages = await prisma.message.findMany({
-        where: { fileId: fileId },
-        orderBy: { createdAt: 'asc'},
-        take: 6
-    });
+    const similarityResults = await vectorStore.similaritySearch(currentMessage.content as string, 5); // we want 4 pages closest context  
 
-    const formattedPrevMessages = prevMessages.map((message) => (
-        {
-            role: message.isUserMessage ? "user" : "assistant",
-            content: message.text
-        }
-    ));
 
     const response = await openai.chat.completions.create({
-        model: 'gpt-3.5-turbo',
-        temperature: 0,
+        model: 'gpt-4-turbo',
         stream: true,
         messages: [
           {
@@ -80,7 +70,7 @@ export const POST = async (req: NextRequest) => {
             \n----------------\n
             
             PREVIOUS CONVERSATION:
-            ${formattedPrevMessages.map((message) => {
+            ${messages.map((message) => {
                 if (message.role === 'user')
                 return `User: ${message.content}\n`
                 return `Assistant: ${message.content}\n`
@@ -89,24 +79,25 @@ export const POST = async (req: NextRequest) => {
             \n----------------\n
             
             CONTEXT:
-            ${results.map((r) => r.pageContent).join('\n\n')}
+            ${similarityResults.map((r) => r.pageContent).join('\n\n')}
             
-            USER INPUT: ${message}`
+            USER INPUT: ${currentMessage.content}`
           }
         ]
     });
 
+    // Convert the response into a friendly text-stream
     const stream = OpenAIStream(response, {
-        async onCompletion(completion) {
+        async onFinal(completion) {
             await prisma.message.create({
                 data: {
                     text: completion,
                     isUserMessage: false,
-                    fileId: fileId,
-                    userId: userId
-                }
+                    userId: userId,
+                    fileId: fileId
+                },
             })
-        }
+        },
     });
 
     return new StreamingTextResponse(stream);

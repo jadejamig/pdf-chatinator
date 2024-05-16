@@ -26,9 +26,9 @@ const CellAction = ({ row }: CellContext<File, unknown>) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="h-8 w-8 p-0">
+        <Button variant="ghost" className="h-8 w-8 p-0 hover:bg-zinc-700">
           <span className="sr-only">Open menu</span>
-          <MoreHorizontal className="h-4 w-4" />
+          <MoreHorizontal className="h-4 w-4 text-zinc-50" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
@@ -68,6 +68,7 @@ export const columns: ColumnDef<File>[] = [
     header: ({ column }) => {
         return (
           <Button
+            className="hover:bg-zinc-700 hover:text-zinc-200"
             variant="ghost"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
@@ -78,8 +79,8 @@ export const columns: ColumnDef<File>[] = [
     },
     cell: ({row}) => (
         <Link href={`/file/${row.original.id}`} className="flex items-center justify-start gap-x-2 cursor-pointer">
-            <BiSolidFilePdf className="h-7 w-7 text-blue-500"/>
-            <p className="max-w-xs truncate">
+            <BiSolidFilePdf className="h-7 w-7 text-emerald-500"/>
+            <p className="max-w-xs truncate text-zinc-50">
                 {row.original.name}
             </p>
         </Link>
@@ -88,6 +89,13 @@ export const columns: ColumnDef<File>[] = [
   {
     accessorKey: "uploadStatus",
     header: "Status",
+    cell: ({row}) => (
+        <div className="max-w-xs flex justify-start items-center">
+          <p className=" truncate rounded-md border border-emerald-500 text-emerald-500 text-xs py-1 px-2">
+              {row.original.uploadStatus}
+          </p>
+        </div>
+  )
   },
   {
     accessorKey: "updatedAt",
@@ -96,7 +104,7 @@ export const columns: ColumnDef<File>[] = [
         const updatedAt = row.original.updatedAt as Date
     return (
         <div className="">
-            <p className="">
+            <p className="text-zinc-50 truncate">
                 {updatedAt.toLocaleDateString('en-us', { weekday:"short", year:"numeric", month:"short", day:"numeric"}) }
             </p>
         </div>

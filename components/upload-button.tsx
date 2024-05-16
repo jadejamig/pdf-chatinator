@@ -21,9 +21,9 @@ const UploadButton = () => {
                 asChild
                 onClick={() => setIsOpen(true)}
             >
-                <Button className="flex gap-x-2 ">
-                    <UploadIcon className="w-4 h-4"/>
-                    new file
+                <Button className="flex gap-x-2 bg-zinc-800 border border-emerald-500 text-emerald-500">
+                    <UploadIcon className="w-4 h-4" />
+                    <span>new file</span>
                 </Button>
             </DialogTrigger>
             <DialogContent className="rounded-lg">
