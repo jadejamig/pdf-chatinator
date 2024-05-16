@@ -14,7 +14,7 @@ export const UserBubble = ({message}: BubbleProps) => {
     return (
         <div ref={ref} className="flex justify-end items-center">
             <div  style={{ maxWidth: width ? width * 0.9 : 0}}>
-            <Markdown className="bg-emerald-600 text-zinc-200 px-4 py-2 text-wrap rounded-3xl text-sm">   
+            <Markdown className="bg-emerald-600 text-zinc-200 px-4 py-2 text-wrap rounded-full text-sm">   
                {message}
             </Markdown>
             </div>
