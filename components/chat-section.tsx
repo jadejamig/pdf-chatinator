@@ -20,11 +20,15 @@ const ChatSection = ({ fileId }: { fileId: string }) => {
 
   const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat({
     onResponse: async (response) => {
-      const res = await response.json();
+      
+      const headers = response.headers
+      const message = headers.get("message")
+      console.log({message})
+
       const status = response.status;
       
       if (status >= 400)
-        toast.error("Daily Limit Reached!", {description: res});
+        toast.error("Daily Limit Reached!", {description: message ?? ""});
     }
   });
 

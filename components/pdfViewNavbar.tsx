@@ -37,10 +37,10 @@ const PdfViewNavBar = ({ file }: PdfViewNavBarProps) => {
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className='bg-zinc-700 border-none'>
               <DropdownMenuGroup className='bg-zinc-700'>
-                <DropdownMenuItem className='bg-zinc-700 focus:bg-zinc-600 text-zinc-200 focus:text-zinc-200'>
+                {/* <DropdownMenuItem className='bg-zinc-700 focus:bg-zinc-600 text-zinc-200 focus:text-zinc-200'>
                   <RotateCcw className="mr-2 h-4 w-4" />
                   <span>Reset chat</span>
-                </DropdownMenuItem>
+                </DropdownMenuItem> */}
                 <DropdownMenuItem 
                   className='text-red-500 focus:text-red-500 bg-zinc-700 focus:bg-zinc-600'
                   onClick={ async () => {

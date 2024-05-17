@@ -2,12 +2,12 @@ import { getKindeUser } from '@/actions/users';
 import { CoreMessage, OpenAIStream, StreamingTextResponse } from 'ai';
 import OpenAI from 'openai';
 
+import { authorizePrompt } from '@/actions/prompt';
 import { pc } from "@/lib/pinecone";
 import prisma from '@/prisma/db';
 import { OpenAIEmbeddings } from "@langchain/openai";
 import { PineconeStore } from "@langchain/pinecone";
 import { NextResponse } from 'next/server';
-import { authorizePrompt } from '@/actions/prompt';
 
 const openai = new OpenAI();
 
@@ -32,7 +32,7 @@ export async function POST(req: Request) {
     const authorize = await authorizePrompt(userId);
 
     if (!authorize)
-        return NextResponse.json("Try again tomorrow bro! You're making me broke 🥲.", {status: 400})
+        return NextResponse.json("Bad request", {status: 400, headers: { message: "Try again tomorrow, you're making me broke my friend :("}})
     //
 
     const currentMessage = messages.pop();

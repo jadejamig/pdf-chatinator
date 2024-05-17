@@ -34,7 +34,7 @@ export async function authorizePrompt(userId: string) {
         return true
     } 
 
-    if (prompt.count >= 5)
+    if (prompt.count >= 10)
         return false
 
     await prisma.prompt.update({

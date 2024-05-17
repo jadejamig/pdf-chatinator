@@ -32,7 +32,6 @@ const UploadDropZone = ({ setIsOpen }: DropzoneProps) => {
                 toast.success(`🎉 Successfully uploaded pdf!`)
             },
             onUploadError: (e) => {
-                console.log({e: e.message})
                 if (e.message === "Invalid config: InvalidFileType")
                     toast.error("Upload Error", {description: "You can only upload PDFs right now"})
                 else if (e.message === "Invalid config: FileSizeMismatch")
