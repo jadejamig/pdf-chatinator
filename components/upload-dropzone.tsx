@@ -8,6 +8,8 @@ import { Progress } from './ui/progress';
 import { useUploadThing } from '@/lib/uploadthing';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
+import { authorizeUpload } from '@/actions/files';
+import { getKindeUser } from '@/actions/users';
 
 interface DropzoneProps {
     setIsOpen:  Dispatch<SetStateAction<boolean>>
@@ -24,24 +26,12 @@ const UploadDropZone = ({ setIsOpen }: DropzoneProps) => {
     const { startUpload } = useUploadThing(
         "pdfUploader",
         {   
-            onClientUploadComplete: ([res]) => {
-                
-                // setIsOpen(false);
-                // router.refresh();
-                // toast.success(`🎉 Successfully uploaded pdf ${res.name}`)
-                // toast({
-                //     duration: 4000,
-                //     variant: "success",
-                //     description: `🎉 Successfully uploaded pdf ${res.name}`
-                // })
+            onClientUploadComplete(_) {
+                router.refresh();
+                toast.success(`🎉 Successfully uploaded pdf!`)
             },
             onUploadError: (e) => {
-                toast.error(e.message)
-                // toast({
-                //     duration: 2000,
-                //     variant: "destructive",
-                //     description: e.message //"Something went wrong! Couldn't upload your file."
-                // })
+                toast.error("Upload Error", {description: e.message})
             }
         },
     );
@@ -66,8 +56,24 @@ const UploadDropZone = ({ setIsOpen }: DropzoneProps) => {
     return (
         <Dropzone
             noClick={true}
-            multiple={false}  
             onDrop={ async (droppedFile) => { 
+                
+                if (droppedFile.length !== 1) {
+                    toast.error("Invalid file count", {description: "You can only upload 1 pdf at a time."})
+                    return
+                }
+                    
+                const user = await getKindeUser();
+
+                if (!user) return null;
+
+                const authorize = await authorizeUpload(user.id);
+
+                if (!authorize) {
+                    toast.error("Upload Limit Reached!", {description: "Chill bro I'm using a free tier 😤"})
+                    return
+                }
+
                 setIsError(false);
                 setIsUploading(true);
                 const progressInterval = startSimulatedProgress();
@@ -86,8 +92,9 @@ const UploadDropZone = ({ setIsOpen }: DropzoneProps) => {
                 setUploadProgress(100);
                 setIsUploading(false);
                 setIsOpen(false);
-                router.refresh();
-                toast.success(`🎉 Successfully uploaded pdf`)
+                
+                // router.refresh();
+                // toast.success(`🎉 Successfully uploaded pdf`)
                 
             }}
         >

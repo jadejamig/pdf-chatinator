@@ -7,47 +7,38 @@ import prisma from '@/prisma/db';
 import { OpenAIEmbeddings } from "@langchain/openai";
 import { PineconeStore } from "@langchain/pinecone";
 import { NextResponse } from 'next/server';
-import { createPrompt, getPrompt, isPromptExpired, updatePrompt } from '@/actions/prompt';
+import { authorizePrompt } from '@/actions/prompt';
 
 const openai = new OpenAI();
 
 export async function POST(req: Request) {
 
     const { messages } = await req.json() as { messages: CoreMessage[] };
+
     const headers = new Headers(req.headers);
     const fileId = headers.get('fileId');
 
-    if (!fileId) return
+    if (!fileId)
+        return NextResponse.json("Bad request", {status: 400})
 
     const user = await getKindeUser();
 
     if (!user)
-        return new NextResponse("Unauthorized", {status: 401})
+        return NextResponse.json("Unauthorized user", {status: 401})
 
     const userId = user.id;
 
     //
-    const isExpired = await isPromptExpired();
-    console.log({isExpired})
-    if (isExpired === null || isExpired) {
-        await createPrompt()
-        console.log("here1")
-    } else {
-        console.log("here2")
-        const prompt = await getPrompt();
-        if (!prompt) return
+    const authorize = await authorizePrompt(userId);
 
-        if (prompt.count >= 5)
-            return new NextResponse("Too many requests today!", {status: 400})
-
-        await updatePrompt()
-    }
+    if (!authorize)
+        return NextResponse.json("You reached the max number of daily prompts. Try again tomorrow, this ain't free bro 🥲.", {status: 400})
     //
 
     const currentMessage = messages.pop();
     
     if (!currentMessage)
-        return new NextResponse("Invalid message", {status: 400})
+        return NextResponse.json("Invalid message", {status: 400})
 
     await prisma.message.create({
         data: {

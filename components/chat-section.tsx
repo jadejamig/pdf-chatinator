@@ -3,26 +3,30 @@
 import { Ghost, LoaderCircle, SendHorizonal } from 'lucide-react';
 import { Button } from './ui/button';
 import { Textarea } from './ui/textarea';
-
 import { getFileMessages } from '@/actions/messages';
 import { Message, useChat } from 'ai/react';
 import { useEffect, useRef, useState, useTransition } from 'react';
 import { AIBubble, UserBubble } from './chat-bubble';
-
-import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
-
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
+
+import { toast } from 'sonner';
 
 const ChatSection = ({ fileId }: { fileId: string }) => {
   const myRef = useRef<HTMLDivElement>(null);
 
   const [isFetching, startTransition] = useTransition();
-
-  const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat();
   const [dbMessages, setDbMessages] = useState<Message[]>([]);
 
-  // const { user,  } = useKindeBrowserClient();
+  const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat({
+    onResponse: async (response) => {
+      const res = await response.json();
+      const status = response.status;
+      
+      if (status >= 400)
+        toast.error("Prompt Limit Reached", {description: res});
+    }
+  });
 
   const scrollToBottom = () => {
     if (myRef.current) {

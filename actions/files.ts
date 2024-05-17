@@ -25,7 +25,6 @@ export async function deleteFileById(key: string) {
         if (!user)
             return { error: "Unauthorized.", status: 401}
 
-
         const utApi = new UTApi();
  
         // Delete file from DB
@@ -53,6 +52,20 @@ export async function getFileFromDb(id: string ) {
     return await prisma.file.findUnique({
         where: { id: id }
     })
+}
+
+export async function authorizeUpload(userId: string) {
+    const files = prisma.file.findMany({
+        where: { userId: userId }
+    })
+
+    if (!files)
+        return true
+
+    if ((await files).length >= 2)
+        return false
+
+    return true
 }
 
 // export async function getFileMessages(fileId: string, cursor: string | undefined, limit: number) {
