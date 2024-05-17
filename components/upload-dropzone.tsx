@@ -68,7 +68,6 @@ const UploadDropZone = ({ setIsOpen }: DropzoneProps) => {
                     toast.error("Invalid file count", {description: "You can only upload 1 pdf at a time."})
                     return
                 }
-                
 
                 // Authorization Part
                 const user = await getKindeUser();
