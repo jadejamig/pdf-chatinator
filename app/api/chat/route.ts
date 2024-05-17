@@ -32,7 +32,7 @@ export async function POST(req: Request) {
     const authorize = await authorizePrompt(userId);
 
     if (!authorize)
-        return NextResponse.json("You reached the max number of daily prompts. Try again tomorrow, this ain't free bro 🥲.", {status: 400})
+        return NextResponse.json("Try again tomorrow bro! You're making me broke 🥲.", {status: 400})
     //
 
     const currentMessage = messages.pop();

@@ -24,7 +24,7 @@ const ChatSection = ({ fileId }: { fileId: string }) => {
       const status = response.status;
       
       if (status >= 400)
-        toast.error("Prompt Limit Reached", {description: res});
+        toast.error("Daily Limit Reached!", {description: res});
     }
   });
 

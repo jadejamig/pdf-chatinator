@@ -26,7 +26,6 @@ import {
 import { useState } from "react";
 import UploadButton from "@/components/upload-button";
 import { Ghost } from "lucide-react";
-import { useResizeDetector } from "react-resize-detector";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]

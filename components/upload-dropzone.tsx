@@ -16,6 +16,7 @@ interface DropzoneProps {
 }
 
 const UploadDropZone = ({ setIsOpen }: DropzoneProps) => {
+
     const [isUploading, setIsUploading] = useState<boolean>(false);
     const [uploadProgress, setUploadProgress] = useState<number>(0);
     const [isError, setIsError] = useState<boolean>(false);
@@ -25,13 +26,19 @@ const UploadDropZone = ({ setIsOpen }: DropzoneProps) => {
 
     const { startUpload } = useUploadThing(
         "pdfUploader",
-        {   
+        {       
             onClientUploadComplete(_) {
                 router.refresh();
                 toast.success(`🎉 Successfully uploaded pdf!`)
             },
             onUploadError: (e) => {
-                toast.error("Upload Error", {description: e.message})
+                console.log({e: e.message})
+                if (e.message === "Invalid config: InvalidFileType")
+                    toast.error("Upload Error", {description: "You can only upload PDFs right now"})
+                else if (e.message === "Invalid config: FileSizeMismatch")
+                    toast.error("PDF size is too big!", {description: "My free tier storage can't afford that 🥲."})
+                else
+                    toast.error("Upload Error", {description: e.message})
             }
         },
     );
@@ -62,24 +69,24 @@ const UploadDropZone = ({ setIsOpen }: DropzoneProps) => {
                     toast.error("Invalid file count", {description: "You can only upload 1 pdf at a time."})
                     return
                 }
-                    
+                
+
+                // Authorization Part
                 const user = await getKindeUser();
-
                 if (!user) return null;
-
                 const authorize = await authorizeUpload(user.id);
-
                 if (!authorize) {
                     toast.error("Upload Limit Reached!", {description: "Chill bro I'm using a free tier 😤"})
                     return
                 }
 
+                // Start Simulation and Upload
                 setIsError(false);
                 setIsUploading(true);
                 const progressInterval = startSimulatedProgress();
                 
                 const res = await startUpload(droppedFile);
-
+                
                 if (!res) {
                     clearInterval(progressInterval);
                     setUploadProgress(0);
@@ -88,14 +95,11 @@ const UploadDropZone = ({ setIsOpen }: DropzoneProps) => {
                     return
                 }
 
+                // Clear Dropzone
                 clearInterval(progressInterval);
                 setUploadProgress(100);
                 setIsUploading(false);
-                setIsOpen(false);
-                
-                // router.refresh();
-                // toast.success(`🎉 Successfully uploaded pdf`)
-                
+                setIsOpen(false); // close dropzone
             }}
         >
             {({getInputProps, getRootProps, acceptedFiles, open}) => (

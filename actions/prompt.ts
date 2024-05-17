@@ -1,6 +1,4 @@
 import prisma from "@/prisma/db";
-import { count } from "console";
-import { getKindeUser } from "./users";
 
 
 export async function createPrompt(userId: string) {
