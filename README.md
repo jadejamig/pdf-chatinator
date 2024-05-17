@@ -35,7 +35,6 @@ Simple OpenAI GPT wrapper that uses the uploaded PDF's context in answering prom
 -   OpenAI GPT-3.5-turbo model
 -   Vercel AI SDK for response streaming feature
 
-
 ## Getting Started
 
 To run the app locally:
