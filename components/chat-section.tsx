@@ -1,6 +1,6 @@
 'use client';
 
-import { Ghost, LoaderCircle, SendHorizonal } from 'lucide-react';
+import { Donut, Ghost, LoaderCircle, SendHorizonal } from 'lucide-react';
 import { Button } from './ui/button';
 import { Textarea } from './ui/textarea';
 import { getFileMessages } from '@/actions/messages';
@@ -80,7 +80,8 @@ const ChatSection = ({ fileId }: { fileId: string }) => {
             { isLoading && (
               <div className='flex justify-center items-center gap-x-2 pb-2 text-zinc-400'>
                 <p className='text-sm'>Chatinator is thinking</p>
-                <LoaderCircle className='w-4 h-4 animate-spin font-light'/>
+                {/* <LoaderCircle className='w-4 h-4 animate-spin font-light'/> */}
+                <Donut className='w-5 h-5 animate-spin font-light'/>
               </div>
             )}
           </div>
